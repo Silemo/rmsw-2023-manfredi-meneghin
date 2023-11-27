@@ -178,8 +178,8 @@ C's identity can be determined, as C is a knight.
 Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
 Accuracy (Is the answer correct?): the answer is correct. It correctly identified the two possible models of the solution 
-(A-knave, B-knave, C-knight; A-knave, B-knight, C-knight). However the answer still contains some erroneous line of reasoning, 
-suggesting that GPT-3.5 has not understood fully the question.
+(A-knave, B-knave, C-knight; A-knave, B-knight, C-knight). However the answer still contains some erroneous lines of reasoning, 
+suggesting that GPT-3.5 has not fully understood the question.
 
 Completeness (Is the answer complete?): the answer is complete, considering all possible scenarios.
 
@@ -189,7 +189,7 @@ Coherence (Is the answer following a correct logical flow?): the answer is not c
 This is because of more than one reason. Firstly, the statement "If B is a knight, then B's statement "Exactly one of us is a knave" would be true,
 which means that both A and C are knaves" is incorrect, as the fact that B is a knight, would imply that either A or C are a knave, but not both. 
 Secondly, the statement "However, this contradicts A's statement that "All of us are knaves". Therefore, B cannot be a knight" is incorrect, as we stated
-in the provious paragraph that A is a knave, and so its statement is false. This conclusion however, is not considered in the solution, making the answer even 
+in the previous paragraph that A is a knave, and so its statement is false. This conclusion however, is not considered in the solution, making the answer even 
 less coherent. Thirdly, the statement "it means that C must be the remaining possibility, which is a knight" does not state what that possibility is. 
 Here the answer should have explicited that C could not be a knave, because: if B and C are knaves, it would make true A's statement, contradicting
 the knave hypothesis (knaves always lie) and on the other hand, if B is a knight and C is a knave, it would make false B's statement, contradicting 
@@ -225,7 +225,7 @@ Nonetheless, errors in the deductive reasoning, don't allow GPT-4 to understand 
 Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
 
 Coherence (Is the answer following a correct logical flow?): the answer is not coherent. In particular, the statement "But if B were a knave, 
-then B's statement would be true, .... therefore, B cannot be a knave" cannot be deduced from the previous sentence, as is B were a knave, 
+then B's statement would be true, .... therefore, B cannot be a knave" cannot be deduced from the previous sentence, as if B were a knave, 
 its statement would still be false, because we know that A is a knave, and so there are at least two knaves, and not "exactly one".
 
 ############################################# Few-shot CoT answers: #############################################################
@@ -284,8 +284,7 @@ Coherence (Is the answer following a correct logical flow?): the answer is not c
 First, the answer already assumed as "determined" that A is a knave, not expliciting the reasoning behind it. Second, the statement 
 "This would mean that there is exactly one knight, which would make B's statement accidentally true" is incorrect, as B's statement refers to the exact number
 of knaves and not knights. Third, the statement "it follows that C cannot be a knave. Otherwise, we would have two knaves, 
-which would contradict B's truthful statement" cannot be deduced from the previous sentence. C is in fact a knight, but only to not contradict A statement if 
-B is a knave, and to not contradict B is B is a knight.
+which would contradict B's truthful statement" cannot be deduced from the previous sentence. C is in fact a knight but this is either to not to contradict A statement (if B is a knave), or to not contradict B statement (if B is a knight).
 
 ############################################# Zero-shot SAT-LM answers: #############################################################
 
@@ -403,15 +402,15 @@ I'm sorry, but I didn't quite understand your question. Could you please clarify
 
 ////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): GPT-3.5 provided no answer for this question, lacking understanding in what it was asked.
+Relevance (Is the answer on point?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
 
-Accuracy (Is the answer correct?): GPT-3.5 provided no answer for this question, lacking understanding in what it was asked.
+Accuracy (Is the answer correct?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
 
-Completeness (Is the answer complete?): GPT-3.5 provided no answer for this question, lacking understanding in what it was asked.
+Completeness (Is the answer complete?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
 
-Clarity (Is the answer easy to read?): GPT-3.5 provided no answer for this question, lacking understanding in what it was asked.
+Clarity (Is the answer easy to read?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
 
-Coherence (Is the answer following a correct logical flow?): GPT-3.5 provided no answer for this question, lacking understanding in what it was asked.
+Coherence (Is the answer following a correct logical flow?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ - ans-3d.in
 For the second scenario, we need to adjust the script to accommodate the new statements by A and B. Here is the modified Mace4 script:
