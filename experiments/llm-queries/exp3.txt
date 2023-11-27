@@ -173,9 +173,9 @@ Conclusion:
 B's identity cannot be determined, as it could be either a knight or a knave.
 C's identity can be determined, as C is a knight.
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knight and knaves problem. 
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
 Accuracy (Is the answer correct?): the answer is correct. It correctly identified the two possible models of the solution 
 (A-knave, B-knave, C-knight; A-knave, B-knight, C-knight). However the answer still contains some erroneous line of reasoning, 
@@ -212,9 +212,9 @@ In conclusion:
 B is a knight, because B's statement "Exactly one of us is a knave" is true.
 C is also a knight, because there can only be one knave, and A is already the knave.
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knight and knaves problem. 
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
 Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
 The answer captures one of these scenarios (A-knave, B-knight and C-knight) but not the other scenario.
@@ -238,9 +238,9 @@ B states that "Exactly one of us is a knave". If B is a knight, then this statem
 Therefore, B must be a knave.
 To determine what C is, we need more information. The statements made by A and B do not provide any direct information about C.
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knight and knaves problem. 
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
 Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
 The answer captures partially one of these scenarios (A-knave, B-knave) but not the full scenario or other scenarios.
@@ -268,9 +268,9 @@ A is a knave (because A's claim that "All of us are knaves" is false).
 B is a knight (because B's claim that "Exactly one of us is a knave" is true).
 C is a knight (by the process of elimination, since there's exactly one knave).
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knight and knaves problem. 
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
 Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
 The answer captures one of these scenarios (A-knave, B-knight and C-knight) but not the other scenario.
@@ -333,7 +333,7 @@ axiom { (all x:Person . says(B,x) iff (all y:Person . says(B,y) iff (all z:Perso
 
 axiom { (all x:Person . says(C,x) iff (all y:Person . says(C,y) iff (all z:Person . says(C,z)))) }
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
 Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, only resembling it and 
 it does not work if inputted into Mace4.
@@ -382,7 +382,7 @@ search.
 This script uses propositional logic to encode the puzzle. When Mace4 runs this script, it will search for a model that 
 satisfies all the given conditions. If it finds one, it will provide an assignment of knights
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
 Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, only resembling it and 
 it does not work if inputted into Mace4.
@@ -401,7 +401,7 @@ Coherence (Is the answer following a correct logical flow?): the answer is not u
 ------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌ - ans-3c.in
 I'm sorry, but I didn't quite understand your question. Could you please clarify what you are asking for?
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
 Relevance (Is the answer on point?): GPT-3.5 provided no answer for this question, lacking understanding in what it was asked.
 
@@ -452,9 +452,9 @@ that all of them are knights or all of them are knaves.
 For B's statement, we have three possibilities for exactly one knave among them, each corresponding to one of A, B, 
 or C being the knave while the others are knights.
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knight and knaves problem.
+Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knights and knaves problem.
 
 Accuracy (Is the answer correct?): the answer is incorrect. While the Mace4 script is syntactically correct, and produces an output without errors, it 
 does not correctly map the problem into code. For instance A's statement "All of us are knaves" is mistakenly written as 
