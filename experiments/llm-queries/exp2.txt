@@ -147,7 +147,7 @@ Clarity (Is the answer easy to read?): the answer is easy to read even if the er
 
 Coherence (Is the answer following a correct logical flow?): the answer is not coherent. This is because of more than one reason. First, a correct model
 was found after the first hypothesis (a: knight, b: knight) it is then no more considered for the solution. Second, the statement "the second person cannot be a knight"
-cannot be deduced from the previous statement. Third, also "the second person must be a knave" is a statement that cannot be deduced from any previous statement. 
+cannot be deduced from the previous statement. Third, "the second person must be a knave" is a statement that cannot be deduced from any previous statement. 
 
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ✅
@@ -196,8 +196,8 @@ Completeness (Is the answer complete?): the answer is somewhat complete, nonethe
 Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
 
 Coherence (Is the answer following a correct logical flow?): the answer is not coherent. This is because of more than one reason. First, a correct model
-was found after the first hypothesis (a: knight, b: knight) then it is no more considered for the solution. Second, the statement "Without additional information ..."
-is incorrect as it did not consider the first solution to the model, that would imply that if the first person is a knight the second must be also a knight. 
+was found after the first hypothesis (a: knight, b: knight) then it is no longer considered for the solution. Second, the statement "Without additional information ..."
+is incorrect as it did not consider the first solution to the model, which would imply that if the first person is a knight the second must also be a knight. 
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ✅
 To solve these kinds of puzzles, it's essential to use logical reasoning to determine the truth or 
