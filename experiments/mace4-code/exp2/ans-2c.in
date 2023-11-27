@@ -1,0 +1,15 @@
+assign(domain_size, 2).
+assign(max_models, -1).
+
+formulas(island_of_truth).
+	all x (inhabitant(x) -> knight(x) | knave(x)).
+	all x ((knight(x) -> -knave(x)) & (knave(x) -> -knight(x))).
+	knight(x) -> m(x).
+	knave(x) -> -m(x).
+end_of_list.
+
+formulas(puzzle).
+	inhabitant(a) & inhabitant(b).
+	m(a) <-> (knight(a) & knight(b)) | (knave(a) & knave(b)).
+	a=0 & b = 1. % remove isomorphisms
+end_of_list.

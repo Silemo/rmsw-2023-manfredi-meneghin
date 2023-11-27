@@ -1,0 +1,99 @@
+============================== Mace4 =================================
+Mace4 (64) version 2009-11A, November 2009.
+Process 6406 was started by giovannimanfredi on ATLAS.lan,
+Sun Nov 26 20:57:41 2023
+The command was "mace4 -f ans-1d.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file ans-1d.in
+
+assign(domain_size,2).
+    % assign(domain_size, 2) -> assign(start_size, 2).
+    % assign(domain_size, 2) -> assign(end_size, 2).
+assign(max_models,-1).
+
+formulas(island_of_truth).
+(all x (inhabitant(x) -> knight(x) | knave(x))).
+(all x ((knight(x) -> -knave(x)) & (knave(x) -> -knight(x)))).
+knight(x) -> m(x).
+knave(x) -> -m(x).
+end_of_list.
+
+formulas(puzzle).
+inhabitant(a) & inhabitant(b).
+m(a) <-> knave(a) | knave(b).
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 (all x (inhabitant(x) -> knight(x) | knave(x))) # label(non_clause).  [assumption].
+2 (all x ((knight(x) -> -knave(x)) & (knave(x) -> -knight(x)))) # label(non_clause).  [assumption].
+3 knight(x) -> m(x) # label(non_clause).  [assumption].
+4 knave(x) -> -m(x) # label(non_clause).  [assumption].
+5 inhabitant(a) & inhabitant(b) # label(non_clause).  [assumption].
+6 m(a) <-> knave(a) | knave(b) # label(non_clause).  [assumption].
+
+============================== end of process non-clausal formulas ===
+
+============================== CLAUSES FOR SEARCH ====================
+
+formulas(mace4_clauses).
+-inhabitant(x) | knight(x) | knave(x).
+-knight(x) | -knave(x).
+-knight(x) | m(x).
+-knave(x) | -m(x).
+inhabitant(a).
+inhabitant(b).
+-m(a) | knave(a) | knave(b).
+m(a) | -knave(a).
+m(a) | -knave(b).
+end_of_list.
+
+============================== end of clauses for search =============
+
+% There are no natural numbers in the input.
+
+============================== DOMAIN SIZE 2 =========================
+
+============================== MODEL =================================
+
+interpretation( 2, [number=1, seconds=0], [
+
+        function(a, [ 0 ]),
+
+        function(b, [ 1 ]),
+
+        relation(inhabitant(_), [ 1, 1 ]),
+
+        relation(knave(_), [ 0, 1 ]),
+
+        relation(knight(_), [ 1, 0 ]),
+
+        relation(m(_), [ 1, 0 ])
+]).
+
+============================== end of model ==========================
+
+============================== STATISTICS ============================
+
+For domain size 2.
+
+Current CPU time: 0.00 seconds (total CPU time: 0.00 seconds).
+Ground clauses: seen=13, kept=13.
+Selections=4, assignments=7, propagations=11, current_models=1.
+Rewrite_terms=12, rewrite_bools=37, indexes=11.
+Rules_from_neg_clauses=0, cross_offs=0.
+
+============================== end of statistics =====================
+
+User_CPU=0.00, System_CPU=0.00, Wall_clock=0.
+
+Exiting with 1 model.
+
+Process 6406 exit (all_models) Sun Nov 26 20:57:41 2023
+The process finished Sun Nov 26 20:57:41 2023

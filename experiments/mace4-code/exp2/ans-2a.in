@@ -1,0 +1,20 @@
+set strategy random;
+
+formulas(assumptions).
+	
+	% P1 is the first person's statement
+	% P2 is the second person's statement
+	% P1 = 1 represents that the first person is a knight, P1 = 0 represents that the first person is a knave
+	% P2 = 1 represents that the second person is a knight, P2 = 0 represents that the second person is a knave
+	
+	P1 = P2.
+
+end_of_list.
+
+formulas(goals).
+
+	% We want to find a model that satisfies the assumptions
+	
+	true.
+
+end_of_list.

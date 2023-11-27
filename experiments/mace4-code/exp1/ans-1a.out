@@ -1,0 +1,20 @@
+============================== Mace4 =================================
+Mace4 (64) version 2009-11A, November 2009.
+Process 6271 was started by giovannimanfredi on ATLAS.lan,
+Sun Nov 26 20:14:24 2023
+The command was "mace4 -f ans-1a.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file ans-1a.in
+
+
+%%ERROR: Unrecognized command or list:
+
+%%START ERROR%%
+begin_model.
+%%END ERROR%%
+
+Fatal error:  Unrecognized command or list
+

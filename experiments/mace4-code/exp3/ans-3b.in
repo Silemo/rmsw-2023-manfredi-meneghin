@@ -1,0 +1,23 @@
+% Domain
+assing (domain, {a, b, c}).
+
+% Predicates
+knight(x).
+knave(x).
+
+% Rules
+- knight(x) | - knave(x). % An individual is either a knight or a knave, but not both.
+knight(x) -> -knave(x). % If an individual is a knight, then they are not a knave.
+knave(x) -> -knight(x). % If an individual is a knave, then they are not a knight.
+
+% A's and B's statements
+% Encoding A's statement: "All of us are knaves"
+(knight(a) -> (knave(a) & knave(b) & knave(c))).
+(knave(a) -> -(knave(a) & knave(b) & knave(c))).
+
+% Encoding B's statement: "Exactly one of us is a knave"
+(knight(b) -> ((knave(a) & -knave(b) & -knave(c)) | (-knave(a) & knave(b) & -knave(c)) | (-knave(a) & -knave(b) & knave(c)) )).
+(knave(b) -> - ((knave(a) & -knave(b) & -knave(c)) | (-knave(a) & knave(b) & -knave(c)) | (-knave(a) & -knave(b) & knave(c)) )).
+
+% Search for a model 
+search.

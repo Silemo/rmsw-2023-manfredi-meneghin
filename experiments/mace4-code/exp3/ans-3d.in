@@ -1,0 +1,28 @@
+assign(domain_size, 3).
+assign(max_models, -1).
+
+formulas(island_of_truth).
+	% Each inhabitant is either a knight or a knave but not both
+	all x (inhabitant(x) -> (knight(x) | knave(x) & -(knight(x) & knave(x)) )).
+	
+	% Knights tell the truth, knaves lie
+	knight(x) -> m(x).
+	knave(x) -> -m(x).
+end_of_list.
+
+formulas(puzzle).
+	% There are three inhabitants: a, b, and c.
+	inhabitant(a) & inhabitant(b) & inhabitant(c).
+
+	% Assign unique identifiers to remove isomorphisms.
+	a = 0 & b = 1 & c = 2.
+	
+	% A says: "All of us are knaves"
+	% This statement can only be a lie since if A were a knave, the statement would be true, which is a contradiction.
+	% Therefore, A is a knight, and the statement is false, meaning not all of them are knaves(c).
+	m(a) <-> -((knight(a) & knight(b) & knight(c)) | (knave(a) & knave(b) & knave(c))).
+	
+	% B says: "Exactly one of us is a knave"
+	% This statement must be true if B is a knight, and false if B is a knave.
+	m(b) <-> ((knight(a) & knave(b) & knight(c)) | (knave(a) & knight(b) & knight(c)) | (knight(a) & knight(b) & knave(c))).
+end_of_list.

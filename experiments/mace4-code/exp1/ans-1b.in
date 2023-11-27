@@ -1,0 +1,34 @@
+% Declare the domains
+set(domains).
+individuals: A, B.
+
+% Define predicates
+set(basis).
+knight(X).
+knave(X).
+
+% Knight tell the truth and knaves lie
+set(clauses).
+% If X is a knight, then what X says is true
+all X (knight(X) -> -knave(X)).
+% If X is a knave, then what X says is false
+all X (knave(X) -> -knight(X)).
+
+% First person's statement: "At least one of us is a knave"
+% If A is a knight, then the statement is true, so at least one is a knave
+% If A is a knave, then the statement is false, which means both are knights (contradiction)
+% Therefore, A's statement only holds if A is a knave and B can be either
+-knight(A).
+knave(A).
+-knave(B).
+knight(B).
+
+% Ensure that everyone is either a knight or a knave, but not both
+all X (knight(X) | knave(X)).
+all X (-knight(X) | -knave(X)).
+
+% Search for a model
+set(auto).
+set(quiet).
+set(assign).
+assign(max_models, 1).

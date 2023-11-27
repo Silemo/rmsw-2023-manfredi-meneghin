@@ -1,0 +1,166 @@
+============================== Mace4 =================================
+Mace4 (64) version 2009-11A, November 2009.
+Process 8297 was started by giovannimanfredi on p26-n37.kthopen.kth.se,
+Mon Nov 27 11:00:47 2023
+The command was "mace4 -f ans-3d.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file ans-3d.in
+
+assign(domain_size,3).
+    % assign(domain_size, 3) -> assign(start_size, 3).
+    % assign(domain_size, 3) -> assign(end_size, 3).
+assign(max_models,-1).
+
+formulas(island_of_truth).
+(all x (inhabitant(x) -> knight(x) | knave(x) & -(knight(x) & knave(x)))).
+knight(x) -> m(x).
+knave(x) -> -m(x).
+end_of_list.
+
+formulas(puzzle).
+inhabitant(a) & inhabitant(b) & inhabitant(c).
+a = 0 & b = 1 & c = 2.
+m(a) <-> -(knight(a) & knight(b) & knight(c) | knave(a) & knave(b) & knave(c)).
+m(b) <-> knight(a) & knave(b) & knight(c) | knave(a) & knight(b) & knight(c) | knight(a) & knight(b) & knave(c).
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 (all x (inhabitant(x) -> knight(x) | knave(x) & -(knight(x) & knave(x)))) # label(non_clause).  [assumption].
+2 knight(x) -> m(x) # label(non_clause).  [assumption].
+3 knave(x) -> -m(x) # label(non_clause).  [assumption].
+4 inhabitant(a) & inhabitant(b) & inhabitant(c) # label(non_clause).  [assumption].
+5 a = 0 & b = 1 & c = 2 # label(non_clause).  [assumption].
+6 m(a) <-> -(knight(a) & knight(b) & knight(c) | knave(a) & knave(b) & knave(c)) # label(non_clause).  [assumption].
+7 m(b) <-> knight(a) & knave(b) & knight(c) | knave(a) & knight(b) & knight(c) | knight(a) & knight(b) & knave(c) # label(non_clause).  [assumption].
+
+============================== end of process non-clausal formulas ===
+
+============================== CLAUSES FOR SEARCH ====================
+
+formulas(mace4_clauses).
+-inhabitant(x) | knight(x) | knave(x).
+-knight(x) | m(x).
+-knave(x) | -m(x).
+inhabitant(a).
+inhabitant(b).
+inhabitant(c).
+0 = a.
+b = 1.
+2 = c.
+-m(a) | -knight(a) | -knight(b) | -knight(c).
+-m(a) | -knave(a) | -knave(b) | -knave(c).
+m(a) | knight(a) | knave(a).
+m(a) | knight(a) | knave(b).
+m(a) | knight(a) | knave(c).
+m(a) | knight(b) | knave(a).
+m(a) | knight(b) | knave(b).
+m(a) | knight(b) | knave(c).
+m(a) | knight(c) | knave(a).
+m(a) | knight(c) | knave(b).
+m(a) | knight(c) | knave(c).
+-m(b) | knight(a) | knave(a).
+-m(b) | knight(a) | knight(b).
+-m(b) | knight(a) | knight(c).
+-m(b) | knave(b) | knave(a) | knave(c).
+-m(b) | knave(b) | knight(b).
+-m(b) | knight(c) | knight(b).
+-m(b) | knight(c) | knave(c).
+m(b) | -knight(a) | -knave(b) | -knight(c).
+m(b) | -knave(a) | -knight(b) | -knight(c).
+m(b) | -knight(a) | -knight(b) | -knave(c).
+end_of_list.
+
+============================== end of clauses for search =============
+
+% The largest natural number in the input is 2.
+
+============================== DOMAIN SIZE 3 =========================
+
+============================== MODEL =================================
+
+interpretation( 3, [number=1, seconds=0], [
+
+        function(a, [ 0 ]),
+
+        function(b, [ 1 ]),
+
+        function(c, [ 2 ]),
+
+        relation(inhabitant(_), [ 1, 1, 1 ]),
+
+        relation(knave(_), [ 0, 0, 1 ]),
+
+        relation(knight(_), [ 1, 1, 0 ]),
+
+        relation(m(_), [ 1, 1, 0 ])
+]).
+
+============================== end of model ==========================
+
+============================== MODEL =================================
+
+interpretation( 3, [number=2, seconds=0], [
+
+        function(a, [ 0 ]),
+
+        function(b, [ 1 ]),
+
+        function(c, [ 2 ]),
+
+        relation(inhabitant(_), [ 1, 1, 1 ]),
+
+        relation(knave(_), [ 0, 1, 1 ]),
+
+        relation(knight(_), [ 1, 0, 0 ]),
+
+        relation(m(_), [ 1, 0, 0 ])
+]).
+
+============================== end of model ==========================
+
+============================== MODEL =================================
+
+interpretation( 3, [number=3, seconds=0], [
+
+        function(a, [ 0 ]),
+
+        function(b, [ 1 ]),
+
+        function(c, [ 2 ]),
+
+        relation(inhabitant(_), [ 1, 1, 1 ]),
+
+        relation(knave(_), [ 1, 1, 1 ]),
+
+        relation(knight(_), [ 0, 0, 0 ]),
+
+        relation(m(_), [ 0, 0, 0 ])
+]).
+
+============================== end of model ==========================
+
+============================== STATISTICS ============================
+
+For domain size 3.
+
+Current CPU time: 0.00 seconds (total CPU time: 0.00 seconds).
+Ground clauses: seen=36, kept=36.
+Selections=2, assignments=4, propagations=26, current_models=3.
+Rewrite_terms=6, rewrite_bools=130, indexes=3.
+Rules_from_neg_clauses=0, cross_offs=0.
+
+============================== end of statistics =====================
+
+User_CPU=0.00, System_CPU=0.00, Wall_clock=0.
+
+Exiting with 3 models.
+
+Process 8297 exit (all_models) Mon Nov 27 11:00:47 2023
+The process finished Mon Nov 27 11:00:47 2023

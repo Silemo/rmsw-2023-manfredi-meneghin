@@ -1,0 +1,57 @@
+============================== Mace4 =================================
+Mace4 (64) version 2009-11A, November 2009.
+Process 8296 was started by giovannimanfredi on p26-n37.kthopen.kth.se,
+Mon Nov 27 11:00:06 2023
+The command was "mace4 -f ans-3c.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file ans-3c.in
+
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+
+============================== end of process non-clausal formulas ===
+
+============================== CLAUSES FOR SEARCH ====================
+
+formulas(mace4_clauses).
+end_of_list.
+
+============================== end of clauses for search =============
+
+% There are no natural numbers in the input.
+
+============================== DOMAIN SIZE 2 =========================
+
+============================== MODEL =================================
+
+interpretation( 2, [number=1, seconds=0], [
+
+]).
+
+============================== end of model ==========================
+
+============================== STATISTICS ============================
+
+For domain size 2.
+
+Current CPU time: 0.00 seconds (total CPU time: 0.00 seconds).
+Ground clauses: seen=0, kept=0.
+Selections=0, assignments=0, propagations=0, current_models=1.
+Rewrite_terms=0, rewrite_bools=0, indexes=0.
+Rules_from_neg_clauses=0, cross_offs=0.
+
+============================== end of statistics =====================
+
+User_CPU=0.00, System_CPU=0.00, Wall_clock=0.
+
+Exiting with 1 model.
+
+Process 8296 exit (max_models) Mon Nov 27 11:00:06 2023
+The process finished Mon Nov 27 11:00:06 2023

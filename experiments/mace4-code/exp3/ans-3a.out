@@ -1,0 +1,22 @@
+============================== Mace4 =================================
+Mace4 (64) version 2009-11A, November 2009.
+Process 8290 was started by giovannimanfredi on p26-n37.kthopen.kth.se,
+Mon Nov 27 10:59:25 2023
+The command was "mace4 -f ans-3a.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file ans-3a.in
+
+%%ERROR: Set parsing is not available (see end of marked string):
+
+%%START ERROR%%vocab {%%END ERROR%% A B C: Person }
+vocab { knight knave : Person -> bool }
+vocab { says : Person Person -> bool }
+vocab { true false : bool }
+
+axiom { all x:Person .
+
+Fatal error:  sread_term error
+

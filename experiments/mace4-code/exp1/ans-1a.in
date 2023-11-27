@@ -1,0 +1,36 @@
+begin_model.
+
+type person.
+
+person p1, p2.
+
+constant knave, knight : person.
+
+relation tells(person, person, person).
+
+relation is_knave(person).
+relation is_knight(person).
+
+function not(person) -> person.
+
+clause tells(p1, p1, knave).
+clause tells(p2, p2, knave).
+
+clause tells(p1, p2, knight) v tells(p1, p2, knave).
+clause tells(p1, p2, knight) v tells(p2, p1, knave).
+
+clause is_knave(p1) v is_knight(p1).
+clause is_knave(p2) v is_knight(p2).
+
+clause is_knave(p1) -> tells(p1, p1, knave).
+clause is_knight(p1) -> tells(p1, p1, knight).
+clause is_knave(p2) -> tells(p2, p2, knave).
+clause is_knight(p2) -> tells(p2, p2, knight).
+
+clause is_knight(p1) -> tells(p1, p2, knight) v tells(p1, p2, knave).
+clause is_knight(p2) -> tells(p2, p1, knight) v tells(p2, p1, knave).
+
+clause is_knave(p1) -> tells(p1, p2, knight) v tells(p1, p2, knave). 
+clause is_knave(p2) -> tells(p2, p1, knight) v tells(p2, p1, knave).
+
+end_model.

@@ -1,0 +1,19 @@
+============================== Mace4 =================================
+Mace4 (64) version 2009-11A, November 2009.
+Process 8450 was started by giovannimanfredi on p26-n37.kthopen.kth.se,
+Mon Nov 27 11:17:39 2023
+The command was "mace4 -f ans-2a.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file ans-2a.in
+
+%%ERROR: A term cannot be constructed from the marked string:
+
+%%START ERROR%%set strategy random;
+
+formulas(assumptions).%%END ERROR%%
+
+Fatal error:  sread_term error
+

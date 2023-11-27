@@ -1,0 +1,23 @@
+% Define the domain: two individuals, A and B.
+set(domain_size). % Set this to 2 because we have two individuals
+
+% Define the predicates: Knight and Knave
+% Knight(x) means x is a knight
+% Knave(x) means x is a knave
+
+% Axiom 1: Everyone is either a knight or a knave, but not both.
+forall(x, (Knight(x) | Knave(x)) & ~(Knight(x) & Knave(x))).
+
+% Axiom 2: Knights always tell the truth, and knaves always lie.
+% Thi means that if x is a Knight and says P, then P must be true.
+% If x is a Knave and says P, then P must be false.
+
+% Axiom 3: The first person (A) says "We are the same".
+% This statement can be interpreted as: "A and B are both knights or both knaves"
+% We need to represent this in terms of truth and lies
+forall(x, forall(y, (Knight(x) & (Knight(x) <-> Knight(y))) | (Knave(x) & (Knight(x) <-> Knight(y))))).
+
+% Now we ask Mace4 to find a model that satisfies all the axioms.
+% If Mace4 finds a model, it means that the situation described is consistent with the rules of knights and knaves.
+output(standard).
+output_model(find_model).

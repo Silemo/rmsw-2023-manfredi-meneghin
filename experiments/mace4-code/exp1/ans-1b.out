@@ -1,0 +1,21 @@
+============================== Mace4 =================================
+Mace4 (64) version 2009-11A, November 2009.
+Process 6339 was started by giovannimanfredi on ATLAS.lan,
+Sun Nov 26 20:30:34 2023
+The command was "mace4 -f ans-1b.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file ans-1b.in
+
+set(domains).
+
+%%ERROR: Flag not recognized:
+
+%%START ERROR%%
+set(domains).
+%%END ERROR%%
+
+Fatal error:  Flag not recognized
+

@@ -1,0 +1,21 @@
+============================== Mace4 =================================
+Mace4 (64) version 2009-11A, November 2009.
+Process 8469 was started by giovannimanfredi on p26-n37.kthopen.kth.se,
+Mon Nov 27 11:24:35 2023
+The command was "mace4 -f ans-2b.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file ans-2b.in
+
+set(domain_size).
+
+%%ERROR: Flag not recognized:
+
+%%START ERROR%%
+set(domain_size).
+%%END ERROR%%
+
+Fatal error:  Flag not recognized
+

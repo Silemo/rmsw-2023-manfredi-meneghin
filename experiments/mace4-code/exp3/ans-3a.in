@@ -1,0 +1,27 @@
+vocab { A B C: Person }
+vocab { knight knave : Person -> bool }
+vocab { says : Person Person -> bool }
+vocab { true false : bool }
+
+axiom { all x:Person . knight(x) or knave(x) }
+axiom { all x:Person . says(x, x) iff knight(x) }
+axiom { all x:Person . not(says(x, x)) iff knave(x) }
+
+axiom { all x:Person . says(A, x) iff knight(x) }
+axiom { all x:Person . says(B, x) iff knight(x) }
+axiom { all x:Person . says(C, x) iff knight(x) }
+
+axiom { all x:Person . says(A, x) -> (all y:Person . says(y,x)) }
+axiom { all x:Person . says(B, x) -> (all y:Person . says(y,x)) }
+axiom { all x:Person . says(C, x) -> (all y:Person . says(y,x)) }
+axiom { all x:Person . says(A, x) -> (all y:Person . says(A,y)) iff says(x, y)}
+axiom { all x:Person . says(B, x) -> (all y:Person . says(B,y)) iff says(x, y)}
+axiom { all x:Person . says(C, x) -> (all y:Person . says(C,y)) iff says(x, y)}
+
+axiom { says(A, A) iff not(says(A,A))}
+axiom { says(B, B) iff not(says(B,B))}
+axiom { says(C, C) iff not(says(C,C))}
+
+axiom { (all x:Person . says(A, x) iff (all y:Person . says(A, y) iff (all z:Person . says(A, z) iff knave(z))))) }
+axiom { (all x:Person . says(B, x) iff (all y:Person . says(B, y) iff (all z:Person . says(B, z) iff (says(B,x) and knave(x)) or (says(B, y) and knave(y)) or (says(B, z) and knave(z)))))) }
+axiom { (all x:Person . says(C, x) iff (all y:Person . says(C, y) iff (all z:Person . says(C, z) ))))}
