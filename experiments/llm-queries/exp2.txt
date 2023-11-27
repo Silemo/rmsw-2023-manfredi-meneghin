@@ -134,9 +134,9 @@ This means that the second person cannot be a knight, as knights always tell the
 Therefore, the second person must be a knave, as knaves always lie.
 Based on these possibilities, we can conclude that the other person is a knave.
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knight and knaves problem. 
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
 Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that the first person could be either a knight or a knave 
 but surely the second person is a knight.
@@ -147,7 +147,7 @@ Clarity (Is the answer easy to read?): the answer is easy to read even if the er
 
 Coherence (Is the answer following a correct logical flow?): the answer is not coherent. This is because of more than one reason. First, a correct model
 was found after the first hypothesis (a: knight, b: knight) it is then no more considered for the solution. Second, the statement "the second person cannot be a knight"
-cannot be deduced from the previous statement. Third, also "the second person must be a knave" is a statement that cannot be deduced from any previous statement. 
+cannot be deduced from the previous statement. Third, "the second person must be a knave" is a statement that cannot be deduced from any previous statement. 
 
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ✅
@@ -161,9 +161,9 @@ Therefore, in this scenario, the second person must be a knight.
 In both scenarios (whether the first person is a knight or a knave), 
 the second person would be a knight. Thus, we can conclude that the other person is a knight.
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knight and knaves problem. 
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
 Accuracy (Is the answer correct?): the answer is correct. It correctly identified the two possible scenarios giving the correct answer.
 
@@ -184,9 +184,9 @@ If the first person is a knave, then their statement "We are the same" must be f
 This means that either the first person is a knight and the second person is a knave, or the first person is a knave and the second person is a knight.
 Without additional information, we cannot definitively determine whether the other person is a knight or a knave.
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knight and knaves problem. 
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
 Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that the first person could be either a knight or a knave 
 but surely the second person is a knight.
@@ -196,8 +196,8 @@ Completeness (Is the answer complete?): the answer is somewhat complete, nonethe
 Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
 
 Coherence (Is the answer following a correct logical flow?): the answer is not coherent. This is because of more than one reason. First, a correct model
-was found after the first hypothesis (a: knight, b: knight) then it is no more considered for the solution. Second, the statement "Without additional information ..."
-is incorrect as it did not consider the first solution to the model, that would imply that if the first person is a knight the second must be also a knight. 
+was found after the first hypothesis (a: knight, b: knight) then it is no longer considered for the solution. Second, the statement "Without additional information ..."
+is incorrect as it did not consider the first solution to the model, which would imply that if the first person is a knight the second must also be a knight. 
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ✅
 To solve these kinds of puzzles, it's essential to use logical reasoning to determine the truth or 
@@ -210,9 +210,9 @@ A is lying (which means A is a knave), and hence B cannot be a knave because A s
 (and a knave would not tell the truth). Therefore, B must be a knight.
 In either case, whether A is a knight or a knave, the statement "We are the same" leads to the conclusion that B is a knight.
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knight and knaves problem. 
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
 Accuracy (Is the answer correct?): the answer is correct. It correctly identified the two possible scenarios giving the correct answer.
 
@@ -250,7 +250,7 @@ formulas(goals).
 end_of_list.
 After running this script with Mace4, it will output a model that satisfies the given specification.
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
 Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, only resembling it and 
 it does not work if inputted into Mace4.
@@ -300,7 +300,7 @@ Note that Mace4 scripts can vary in syntax and details depending on the specific
 The above script is a general representation of how one might encode the problem and should be adapted to fit the syntax 
 required by the version of Mace4 you are using.
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
 Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, only resembling it and 
 it does not work if inputted into Mace4.
@@ -333,9 +333,9 @@ formulas ( puzzle ).
     a=0 & b=1. %remove isomorphisms
 end_of_list .
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knight and knaves problem.
+Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knights and knaves problem.
 
 Accuracy (Is the answer correct?): the answer is correct. The Mace4 script is the same script Groza wrote of problem 64.
 
@@ -379,9 +379,9 @@ finder from considering two identical solutions where the roles of a and b are s
 This script would help us determine the possible configurations of a and b (whether they are knights, 
 knaves, or one of each) based on the statement that they are the same.
 
-////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knight and knaves problem.
+Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knights and knaves problem.
 
 Accuracy (Is the answer correct?): the answer is correct. The Mace4 script is the same script Groza wrote of problem 64.
 
