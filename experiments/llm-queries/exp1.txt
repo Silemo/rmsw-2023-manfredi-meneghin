@@ -193,7 +193,7 @@ No scenario in which the second person is a knave is explored.
 Clarity (Is the answer easy to read?): the answer is easy to read.
 
 Coherence (Is the answer following a correct logical flow?): the answer is not coherent, in fact the logical flow contains two main logical inferences which are incorrect.
-These erroneus reasonings are Step 4, in which a contradiction is outlined, while no contradiction is present and Step 7 which is not deducible from Step 6.
+These erroneous reasonings are Step 4, in which a contradiction is outlined, while no contradiction is present and Step 7 which is not deducible from Step 6.
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ✅
 
@@ -214,7 +214,7 @@ Relevance (Is the answer on point?):  the answer is relevant, talking about poss
 
 Accuracy (Is the answer correct?): the answer is correct.
 
-Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or false in those and looking for contradictions.
+Completeness (Is the answer complete?): the answer outlines each possible scenario explaining how the statement would be true or false in those and looking for contradictions.
 
 Clarity (Is the answer easy to read?): the answer is easy to read.
 
@@ -250,7 +250,7 @@ No scenario in which the second person is a knave is explored.
 Clarity (Is the answer easy to read?): The answer is easy to read.
 
 Coherence (Is the answer following a correct logical flow?): the answer is not coherent, in fact the logical flow contains two main logical inferences which are incorrect.
-These erroneus reasonings are Case 1, in which a contradiction is outlined, while no contradiction is present and Case 2 which says that both a and b are knights which is different from the hypothesis
+These erroneous reasonings are Case 1, in which a contradiction is outlined, while no contradiction is present and Case 2 which says that both a and b are knights which is different from the hypothesis
 made in that case.
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ✅
