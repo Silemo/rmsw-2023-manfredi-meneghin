@@ -1,0 +1,480 @@
+################################################  61: #####################################################################
+On the island of knights and knaves, knights always tell the truth, while knaves always lie. 
+You are approached by two people. The first one says: “We are both knaves”. What are they actually?
+
+////////////////////////////////////////////// Answer //////////////////////////////////////////////////////////////////////
+
+Let start by formalising the assumptions regarding the island of truth. First, the inhabitants are either knights or knaves:
+∀x (inhabitant(x) → knight(x) ∨ knave(x)) 
+Second, one cannot be a knight and a knave in the same time:
+∀x ((knight(x) → ¬knave(x)) ∧ (knave(x) → ¬knight(x)))
+Third, a message m(x) said by a knight x is always true: knight(x) → m(x). 
+Fourth, a message m(x) said by a knave x is always false: knave(x) → ¬m(x). 
+Next, we formalise the first puzzle on the island. 
+
+We learn that there are two inhabitants, let’s say a and b: inhabitant(a) ∧ inhabitant(b). 
+We need a domain size of two individuals. The message of inhabitant a is: m(a) ↔ knave(a) ∧ knave(b).
+There is only a single model:
+a = [0]
+inhabitant(_) = [1,1] 
+knight(_) = [0,1]
+b = [1]
+m(_) = [0,1] 
+knave(_) = [1,0]
+
+Here, the inhabitant a gets value 0 from the domain, while the inhabitant b gets value 1. 
+The predicate inhabitant is true for both a and b, as it is explicitly stated in the code. 
+
+We can deduce that the message conveyed by the agent with value 0 (i.e. inhabitant a) is false. 
+The predicate knave has value 1 for the first inhabitant (a = 0), and value 0 for the second one (b = 1). 
+Quite the opposite, the predicate knight has value 0 for the first inhabitant (a = 0), and value 1 for the second one (b = 1).
+The above model is consistent with the one found by the following line of reasoning a human agent might have: 
+If the message is true, then it had to be conveyed by a knight, i.e. knight(a). But the message says knave(a). 
+Hence the message must be false. That means that it was conveyed by a knave, i.e. knave(a). 
+Since the message is false, it also means that ¬knave(a) ∨ ¬knave(b). In other words, we have knight(a) ∨ knight(b). Hence b is a knight.
+
+------------------------------------------ Mace4 - Book code: ------------------------------------------------------------
+assign(domain_size ,2). 
+assign(max_models,−1).
+
+formulas(island_of_truth ).
+    all x (inhabitant(x) −> knight(x) | knave(x)).
+    all x ((knight(x) −> −knave(x)) & (knave(x) −> −knight(x))). knight(x) −> m(x).
+    knave(x) −> −m(x).
+end_of_list .
+
+formulas ( puzzle ).
+    inhabitant(a) & inhabitant(b).
+    m(a) <−> knave(a) & knave(b). 
+end_of_list .
+
+################################################  62: #####################################################################
+On the island of knights and knaves, knights always tell the truth, while knaves always lie. 
+You are approached by two people. The first one says: “At least one of us is a knave”. What are they actually?
+
+////////////////////////////////////////////// Answer //////////////////////////////////////////////////////////////////////
+
+The puzzle is similar with puzzle 61, but the message is different. 
+The current message is: m(a) ↔ knave(a) ∨ knave(b) (as written in the code). We can find a single model:
+a = [0]
+inhabitant(_) = [1,1] 
+knight(_) = [0,1]
+b = [1]
+m(_) = [0,1] 
+knave(_) = [1,0]
+Here the inhabitant a gets the value 0 from the domain, while the inhabitant b gets the value 1. 
+The function inhabitant is true for both a and b, as it is explicitly stated in the code. 
+We deduce that the message conveyed by the element with value 0 (i.e. inhabitant a) is true. 
+The function knave has value 0 for the first inhabitant (a = 0), and value 1 for the second one (b = 1). 
+Quite the opposite, the function knight has value 1 for the first inhabitant (a = 0), and value 0 for the second one (b = 1).
+The above model is consistent with the one found by the following line of reasoning: 
+Suppose the message is false. Hence, the following holds: ¬knave(a) ∧ ¬knave(b). 
+This is equivalent to knight(a) ∧ knight(b). 
+But if the message is false, it was conveyed by a knave, i.e. knave(a), which is a contradiction. 
+Now, suppose the message is true. Then it was conveyed by a knight, i.e. knight(a). The message is true only when b is a knave.
+
+------------------------------------------ Mace4 - Book code: ------------------------------------------------------------
+assign(domain_size ,2). 
+assign(max_models,−1).
+
+formulas(island_of_truth ).
+    all x (inhabitant(x) −> knight(x) | knave(x)).
+    all x ((knight(x) −> −knave(x)) & (knave(x) −> −knight(x))). 
+    knight(x) −> m(x).
+    knave(x) −> −m(x).
+end_of_list .
+
+formulas ( puzzle ).
+    inhabitant(a) & inhabitant(b).
+    m(a) <−> knave(a) | knave(b). 
+end_of_list .
+
+############################################# Zero-shot CoT prompt: #############################################################
+Question: On the island of knights and knaves, knights always tell the truth, while knaves always lie. 
+You are approached by two people. The first one says: “At least one of us is a knave”. What are they actually? 
+Think step by step.
+
+Answer: ?
+
+############################################# Few-shot CoT prompt: #############################################################
+Question1: On the island of knights and knaves, knights always tell the truth, while knaves always lie. 
+You are approached by two people. The first one says: “We are both knaves”. What are they actually?
+
+Answer1: 
+Let start by formalising the assumptions regarding the island of truth. First, the inhabitants are either knights or knaves:
+∀x (inhabitant(x) → knight(x) ∨ knave(x)) (1)
+Second, one cannot be a knight and a knave in the same time:
+∀x ((knight(x) → ¬knave(x)) ∧ (knave(x) → ¬knight(x))) (2)
+Third, a message m(x) said by a knight x is always true: knight(x) → m(x). 
+Fourth, a message m(x) said by a knave x is always false: knave(x) → ¬m(x). 
+Next, we formalise the first puzzle on the island. 
+
+We learn that there are two inhabitants, let’s say a and b: inhabitant(a) ∧ inhabitant(b). 
+We need a domain size of two individuals. The message of inhabitant a is: m(a) ↔ knave(a) ∧ knave(b).
+There is only a single model:
+a = [0]
+inhabitant(_) = [1,1] 
+knight(_) = [0,1]
+b = [1]
+m(_) = [0,1] 
+knave(_) = [1,0]
+
+Here, the inhabitant a gets value 0 from the domain, while the inhabitant b gets value 1. 
+The predicate inhabitant is true for both a and b, as it is explicitly stated in the code. 
+
+We can deduce that the message conveyed by the agent with value 0 (i.e. inhabitant a) is false. 
+The predicate knave has value 1 for the first inhabitant (a = 0), and value 0 for the second one (b = 1). 
+Quite the opposite, the predicate knight has value 0 for the first inhabitant (a = 0), and value 1 for the second one (b = 1).
+The above model is consistent with the one found by the following line of reasoning a human agent might have: 
+If the message is true, then it had to be conveyed by a knight, i.e. knight(a). But the message says knave(a). 
+Hence the message must be false. That means that it was conveyed by a knave, i.e. knave(a). 
+Since the message is false, it also means that ¬knave(a) ∨ ¬knave(b). In other words, we have knight(a) ∨ knight(b). Hence b is a knight.
+
+Question2: On the island of knights and knaves, knights always tell the truth, while knaves always lie. 
+You are approached by two people. The first one says: “At least one of us is a knave”. What are they actually?
+
+Answer2: ?
+
+############################################# Zero-shot SAT-LM prompt: #############################################################
+Question: On the island of knights and knaves, knights always tell the truth, while knaves always lie. 
+You are approached by two people. The first one says: “At least one of us is a knave”.
+Write a Mace4 script that can be used to find a model fitting this specification.
+
+Answer: ?
+
+############################################# Few-shot SAT-LM prompt: #############################################################
+Question1: On the island of knights and knaves, knights always tell the truth, while knaves always lie. 
+You are approached by two people. The first one says: “We are both knaves”.
+Write a Mace4 script that can be used to find a model fitting this specification.
+
+Answer1: 
+assign(domain_size ,2). 
+assign(max_models,−1).
+
+formulas(island_of_truth ).
+    all x (inhabitant(x) −> knight(x) | knave(x)).
+    all x ((knight(x) −> −knave(x)) & (knave(x) −> −knight(x))). 
+    knight(x) −> m(x).
+    knave(x) −> −m(x).
+end_of_list .
+
+formulas ( puzzle ).
+    inhabitant(a) & inhabitant(b).
+    m(a) <−> knave(a) & knave(b). 
+end_of_list .
+
+Question2: On the island of knights and knaves, knights always tell the truth, while knaves always lie. 
+You are approached by two people. The first one says: “At least one of us is a knave”.
+Write a Mace4 script that can be used to find a model fitting this specification.
+
+Answer2: ?
+
+#############################################  Zero-shot CoT answers: #############################################################
+
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌
+
+Step 1: Let's assume that the first person is a knight. This means that they always tell the truth.
+Step 2: If the first person is a knight and they say "At least one of us is a knave," then their statement must be true.
+Step 3: But if their statement is true, it means that there is at least one knave among them.
+Step 4: This contradicts our initial assumption that the first person is a knight, as knights always tell the truth.
+Step 5: Therefore, the first person cannot be a knight.
+Step 6: Since the first person cannot be a knight, they must be a knave.
+Step 7: This means that the second person is a knight, as knights always tell the truth.
+
+////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knight and knaves problem. 
+
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that the first person is a knight and the second person is a knave.
+
+Completeness (Is the answer complete?): the answer is not complete because it does not discuss the possible scenarios regarding the second person.
+No scenario in which the second person is a knave is explored.
+
+Clarity (Is the answer easy to read?): the answer is easy to read.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent, in fact the logical flow contains two main logical inferences which are incorrect.
+These erroneus reasonings are Step 4, in which a contradiction is outlined, while no contradiction is present and Step 7 which is not deducible from Step 6.
+
+------------------------------------------ gpt4 : ------------------------------------------------------------ ✅
+
+Let's analyze the statement step by step:
+If the first person is a knight (truth-teller), then their statement "At least one of us is a knave" would be true. 
+This would mean the second person must be a knave, because if both were knights, the statement would be false (since knights always tell the truth, 
+and it would not be true that at least one of them is a knave).
+If the first person is a knave (liar), then their statement "At least one of us is a knave" would be false. For the statement to be false, 
+neither of them could be a knave because the statement asserts the presence of at least one knave. This is a contradiction, since we know that the first 
+person must be lying if they are a knave, so there must be at least one knave (themselves).
+Given this analysis, the first person cannot be a knave, because their statement would then lead to a contradiction. The first person must, therefore, be a knight, 
+and the second person must be a knave for the first person's statement to be truthful and consistent.
+So, the first person is a knight, and the second person is a knave.
+
+////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+
+Relevance (Is the answer on point?):  the answer is relevant, talking about possible solutions of the knight and knaves problem.
+
+Accuracy (Is the answer correct?): the answer is correct.
+
+Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or false in those and looking for contradictions.
+
+Clarity (Is the answer easy to read?): the answer is easy to read.
+
+Coherence (Is the answer following a correct logical flow?): the answer follows a correct deductive logical flow.
+
+#############################################  Few-shot CoT answers: #############################################################
+
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌
+
+Let's analyze the second puzzle on the island.
+We have two inhabitants, let's call them a and b: inhabitant(a) ∧ inhabitant(b).
+The first inhabitant says, "At least one of us is a knave": m(a) ↔ knave(a) ∨ knave(b).
+To determine the actual identities of a and b, we need to consider all possible cases.
+Case 1: a is a knight and b is a knave.
+In this case, the statement made by a would be true since there is indeed at least one knave (b) present. 
+However, since knights always tell the truth, this contradicts the assumption that a is a knight. 
+Therefore, this case is not possible.
+Case 2: a is a knave and b is a knight.
+In this case, the statement made by a would be false since both a and b are knights. 
+Since knaves always lie, this is consistent with a being a knave.
+The assumption that b is a knight is also consistent with this case.
+Based on case 2, we can conclude that the first inhabitant (a) is a knave and the second inhabitant (b) is a knight.
+
+////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+
+Relevance (Is the answer on point?):  the answer is relevant, talking about possible solutions of the knight and knaves problem.
+
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that the first person is a knight and the second person is a knave.
+
+Completeness (Is the answer complete?): the answer is not complete because it does not discuss the possible scenarios regarding the second person.
+No scenario in which the second person is a knave is explored.
+
+Clarity (Is the answer easy to read?): The answer is easy to read.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent, in fact the logical flow contains two main logical inferences which are incorrect.
+These erroneus reasonings are Case 1, in which a contradiction is outlined, while no contradiction is present and Case 2 which says that both a and b are knights which is different from the hypothesis
+made in that case.
+
+------------------------------------------ gpt4 : ------------------------------------------------------------ ✅
+
+Answer2:
+Let's analyze the statement made by the first person: "At least one of us is a knave."
+Given the rules of the island, we know the following:
+If the speaker is a knight, then their statement is true.
+If the speaker is a knave, then their statement is false.
+If the speaker is a knight, the statement "At least one of us is a knave" would indeed be true, as knights always tell the truth. 
+This would mean that the other person must be a knave since the knight's statement is true.
+If the speaker is a knave, the statement "At least one of us is a knave" cannot be true, as knaves always lie. But in this case, 
+the statement becomes paradoxical because if the knave claims that one of them is a knave (including possibly themselves), it would be a truthful statement, which is not possible for a knave.
+To resolve this paradox, we must conclude that the first person cannot be a knave because then they would be telling the truth. 
+Therefore, the first person must be a knight, making their statement true. This means that the other person is indeed a knave, as the knight's statement 
+"At least one of us is a knave" would be accurate.
+In conclusion, the first person is a knight, and the second person is a knave.
+
+////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+
+Relevance (Is the answer on point?):  the answer is relevant, talking about possible solutions of the knight and knaves problem.
+
+Accuracy (Is the answer correct?): the answer is correct.
+
+Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or false in those and looking for contradictions.
+
+Clarity (Is the answer easy to read?): the answer is easy to read.
+
+Coherence (Is the answer following a correct logical flow?): the answer follows a correct deductive logical flow.
+
+############################################# Zero-shot SAT-LM answers: #############################################################
+
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌ - ans-1a.in
+
+Here is a Mace4 script that can be used to find a model fitting the given specification:
+
+begin_model.
+
+type person.
+
+person p1, p2.
+
+constant knave, knight : person.
+
+relation tells(person, person, person).
+
+relation is_knave(person).
+relation is_knight(person).
+
+function not(person) -> person.
+
+clause tells(p1, p1, knave).
+clause tells(p2, p2, knave).
+
+clause tells(p1, p2, knight) v tells(p1, p2, knave).
+clause tells(p2, p1, knight) v tells(p2, p1, knave).
+
+clause is_knave(p1) v is_knight(p1).
+clause is_knave(p2) v is_knight(p2).
+
+clause is_knave(p1) -> tells(p1, p1, knave).
+clause is_knight(p1) -> tells(p1, p1, knight).
+clause is_knave(p2) -> tells(p2, p2, knave).
+clause is_knight(p2) -> tells(p2, p2, knight).
+
+clause is_knight(p1) -> tells(p1, p2, knight) v tells(p1, p2, knave).
+clause is_knight(p2) -> tells(p2, p1, knight) v tells(p2, p1, knave).
+
+clause is_knave(p1) -> tells(p1, p2, knight) v tells(p1, p2, knave).
+clause is_knave(p2) -> tells(p2, p1, knight) v tells(p2, p1, knave).
+
+end_model.
+
+
+This script defines the necessary types, relations, and functions. 
+It then specifies the constraints and rules based on the given information. 
+The script can be run using Mace4 to find a model that satisfies the constraints.
+
+////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+
+Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, only resembling it and 
+it does not work if inputted into Mace4.
+
+Accuracy (Is the answer correct?): the answer is incorrect. The Mace4 script is not valid and if inputted into Mace4 a  "Fatal Error: Unrecognised command or list" is raised.
+
+Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete.
+
+Clarity (Is the answer easy to read?): the answer is difficult to read, being written in a code that only resembles Mace4, so that it does not follow its guidelines.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not understandable, so it can't be determined if it is following a correct logical flow.
+
+------------------------------------------ gpt4 : ------------------------------------------------------------ ❌
+
+To solve this puzzle using Mace4, we need to encode the problem in a logical specification that Mace4 can understand. 
+We'll create a script that defines two individuals, A and B, and the properties of knights and knaves. 
+In this script, knight(x) will represent that x is a knight, and knave(x) will represent that x is a knave. 
+We'll use the statements provided to set up the logical constraints.
+Here's the Mace4 input script to find a model for the situation described:
+
+% Declare the domains
+set(domains).
+individuals: A, B.
+
+% Define predicates
+set(basis).
+knight(X).
+knave(X).
+
+% Knights tell the truth and knaves lie
+set(clauses).
+% If X is a knight, then what X says is true
+all X (knight(X) -> -knave(X)).
+% If X is a knave, then what X says is false
+all X (knave(X) -> -knight(X)).
+
+% First person's statement: "At least one of us is a knave"
+% If A is a knight, then the statement is true, so at least one is a knave
+% If A is a knave, then the statement is false, which means both are knights (contradiction)
+% Therefore, A's statement only holds if A is a knave and B can be either
+-knight(A).
+knave(A).
+-knave(B).
+knight(B).
+
+% Ensure that everyone is either a knight or a knave, but not both
+all X (knight(X) | knave(X)).
+all X (-knight(X) | -knave(X)).
+
+% Search for a model
+set(auto).
+set(quiet).
+set(assign).
+assign(max_models, 1).
+
+
+This script sets up the problem and searches for a model where the statement by the first person (A), "At least one of us is a knave," 
+is taken into account. Since A says this statement and it's true, A must be a knave (as knaves lie, and if A were a knight, it would create a paradox). 
+Therefore, B's classification as a knight or knave is independent of A's statement, so B could be either a knight or a knave. 
+The script reflects this by not adding any specific clauses for B's nature. 
+
+////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+
+Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, only resembling it and 
+it does not work if inputted into Mace4.
+
+Accuracy (Is the answer correct?): the answer is incorrect. The Mace4 script is not valid and if inputted into Mace4 a  "Fatal error: Flag not recognised" is raised.
+
+Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete.
+
+Clarity (Is the answer easy to read?): the answer is difficult to read, being written in a code that only resembles Mace4, so that it does not follow its guidelines.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not understandable, so it can't be determined if it is following a correct logical flow.
+
+############################################# Few-shot SAT-LM answers: #############################################################
+
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ✅
+
+assign(domain_size ,2).
+assign(max_models,−1).
+
+formulas(island_of_truth ).
+    all x (inhabitant(x) −> knight(x) | knave(x)).
+    all x ((knight(x) −> −knave(x)) & (knave(x) −> −knight(x))).
+    knight(x) −> m(x).
+    knave(x) −> −m(x).
+end_of_list .
+
+formulas ( puzzle ).
+    inhabitant(a) & inhabitant(b).
+    m(a) <−> (knave(a) | knave(b)).
+end_of_list .
+
+////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+
+Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knight and knaves problem.
+
+Accuracy (Is the answer correct?): the answer is correct. The Mace4 script is the same script Groza wrote of problem 62.
+
+Completeness (Is the answer complete?): the answer is complete, providing the requested code. 
+
+Clarity (Is the answer easy to read?): the answer is easy to read, providing a well written Mace4 script.
+
+Coherence (Is the answer following a correct logical flow?): the answer correctly creates the script, making correct use of assign() and formulas().
+
+------------------------------------------ gpt4 : ------------------------------------------------------------ ✅
+
+Answer2:
+To write a Mace4 script for the second scenario, we need to adjust the puzzle statement to reflect the new claim: "At least one of us is a knave". 
+This statement would be true if said by a knight (since knights always tell the truth and there could be at least one knave between the two), 
+or if said by a knave (since knaves always lie, and the statement would be a lie if both were knaves, but it could also be true if one was 
+a knave and the other a knight). Let's construct the Mace4 input.
+
+assign(domain_size, 2).
+assign(max_models, -1).
+
+formulas(island_of_truth).
+    all x (inhabitant(x) -> knight(x) | knave(x)).
+    all x ((knight(x) -> -knave(x)) & (knave(x) -> -knight(x))).
+    knight(x) -> m(x).
+    knave(x) -> -m(x).
+end_of_list.
+
+formulas(puzzle).
+    inhabitant(a) & inhabitant(b).
+    m(a) <-> (knave(a) | knave(b)).
+end_of_list.
+
+Explanation of the modifications:
+In the formulas(puzzle) section, I changed the condition m(a) <-> knave(a) & knave(b) to m(a) <-> (knave(a) | knave(b)) 
+to accurately represent the new statement "At least one of us is a knave", which is logically equivalent to 
+"Person A is a knave OR Person B is a knave".
+The rest of the script remains unchanged as the basic definitions of the island, knights, and knaves are the same.
+This script, when processed by Mace4, would find all models that fit the specification where one person 
+(inhabitant a) claims that at least one of the two individuals is a knave.
+
+////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
+
+Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knight and knaves problem.
+
+Accuracy (Is the answer correct?): the answer is correct. The Mace4 script is the same script Groza wrote of problem 62.
+
+Completeness (Is the answer complete?): the answer is complete, providing the requested code. The answer even provides a further explanation of the code written
+and how it differs from the solution to problem 61 provided as input.
+
+Clarity (Is the answer easy to read?): the answer is easy to read, providing a well written Mace4 script.
+
+Coherence (Is the answer following a correct logical flow?): the answer correctly creates the script, making correct use of assign() and formulas().
