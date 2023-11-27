@@ -342,7 +342,7 @@ Clarity (Is the answer easy to read?): the answer is difficult to read, being wr
 
 Coherence (Is the answer following a correct logical flow?): the answer is not understandable, so it can't be determined if it is following a correct logical flow.
 
------------------------------------------- gpt4 : ------------------------------------------------------------ ❌
+------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ - ans-1b.in
 
 To solve this puzzle using Mace4, we need to encode the problem in a logical specification that Mace4 can understand. 
 We'll create a script that defines two individuals, A and B, and the properties of knights and knaves. 
@@ -406,7 +406,7 @@ Coherence (Is the answer following a correct logical flow?): the answer is not u
 
 ############################################# Few-shot SAT-LM answers: #############################################################
 
------------------------------------------- gpt3.5 : ------------------------------------------------------------ ✅
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ✅ - ans-1c.in
 
 assign(domain_size ,2).
 assign(max_models,−1).
@@ -435,7 +435,7 @@ Clarity (Is the answer easy to read?): the answer is easy to read, providing a w
 
 Coherence (Is the answer following a correct logical flow?): the answer correctly creates the script, making correct use of assign() and formulas().
 
------------------------------------------- gpt4 : ------------------------------------------------------------ ✅
+------------------------------------------ gpt4 : ------------------------------------------------------------ ✅ - ans-1d.in
 
 Answer2:
 To write a Mace4 script for the second scenario, we need to adjust the puzzle statement to reflect the new claim: "At least one of us is a knave". 

@@ -224,7 +224,7 @@ Coherence (Is the answer following a correct logical flow?): the answer follows 
 
 ############################################# Zero-shot SAT-LM answers: #############################################################
 
------------------------------------------- gpt3.5 : ------------------------------------------------------------ ❌
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌ - ans-2a.in
 Here is a Mace4 script that can be used to find a model fitting the specification:
 
 set strategy random;
@@ -263,7 +263,7 @@ Clarity (Is the answer easy to read?): the answer is difficult to read, being wr
 
 Coherence (Is the answer following a correct logical flow?): the answer is not understandable, so it can't be determined if it is following a correct logical flow.
 
------------------------------------------- gpt4 : ------------------------------------------------------------ ❌
+------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ - ans-2b.in
 To create a Mace4 script to find a model that fits the specification of the puzzle on the island of knights and knaves, 
 you need to encode the problem in a logical form that Mace4 can understand and process.
 Here's an example of how you might encode this problem in a Mace4 script:
@@ -316,7 +316,7 @@ Coherence (Is the answer following a correct logical flow?): the answer is not u
 
 ############################################# Few-shot SAT-LM answers: #############################################################
 
------------------------------------------- gpt3.5 : ------------------------------------------------------------ ✅
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ✅ - ans-2c.in
 assign(domain_size ,2).
 assign(max_models,−1).
 
@@ -345,7 +345,7 @@ Clarity (Is the answer easy to read?): the answer is easy to read, providing a w
 
 Coherence (Is the answer following a correct logical flow?): the answer correctly creates the script, making correct use of assign() and formulas().
 
------------------------------------------- gpt4 : ------------------------------------------------------------ ✅
+------------------------------------------ gpt4 : ------------------------------------------------------------ ✅ - ans-2d.in
 To create a Mace4 script for the second scenario, where the first person says "We are the same," 
 we can follow a similar structure to the first scenario with some modifications to reflect the new statement. 
 Here's how the script would look:

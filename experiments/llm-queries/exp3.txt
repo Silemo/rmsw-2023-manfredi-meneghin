@@ -289,7 +289,7 @@ B is a knave, and to not contradict B is B is a knight.
 
 ############################################# Zero-shot SAT-LM answers: #############################################################
 
------------------------------------------- gpt3.5 : ------------------------------------------------------------ ?
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌ - ans-3a.in
 Here is a Mace4 script that can be used to find a model fitting the given specification:
 
 vocab { A B C: Person }
@@ -346,7 +346,7 @@ Clarity (Is the answer easy to read?): the answer is difficult to read, being wr
 
 Coherence (Is the answer following a correct logical flow?): the answer is not understandable, so it can't be determined if it is following a correct logical flow.
 
------------------------------------------- gpt4 : ------------------------------------------------------------ ?
+------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ - ans-3b.in
 To solve this puzzle using Mace4, we need to create a script that represents the statements made by A and B, 
 along with the rules governing knights and knaves.
 The script will have the following structure:
@@ -398,7 +398,7 @@ Coherence (Is the answer following a correct logical flow?): the answer is not u
 
 ############################################# Few-shot SAT-LM answers: #############################################################
 
------------------------------------------- gpt3.5 : ------------------------------------------------------------ ❌
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌ - ans-3c.in
 I'm sorry, but I didn't quite understand your question. Could you please clarify what you are asking for?
 
 ////////////////////////////////////////// comment //////////////////////////////////////////////////////////// - DONE
@@ -413,7 +413,7 @@ Clarity (Is the answer easy to read?): GPT-3.5 provided no answer for this quest
 
 Coherence (Is the answer following a correct logical flow?): GPT-3.5 provided no answer for this question, lacking understanding in what it was asked.
 
------------------------------------------- gpt4 : ------------------------------------------------------------ ?
+------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ - ans-3d.in
 For the second scenario, we need to adjust the script to accommodate the new statements by A and B. Here is the modified Mace4 script:
 
 assign(domain_size, 3).
