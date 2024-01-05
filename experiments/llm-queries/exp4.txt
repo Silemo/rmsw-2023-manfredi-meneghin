@@ -431,7 +431,7 @@ Clarity (Is the answer easy to read?): the answer is easy to read, providing a w
 
 Coherence (Is the answer following a correct logical flow?): the answer correctly creates the script, making correct use of assign() and formulas().
 
------------------------------------------- gpt4 : ------------------------------------------------------------ ? ❌✅  - ans-4d.in
+------------------------------------------ gpt4 : ------------------------------------------------------------ ? ❌  - ans-4d.in
 Let's first analyze the statements made by Jim, Jon, and Joe to understand the logic behind them before writing the Mace4 script for the second question.
 
 1. Jim says: "Joe is a knave or I am a knight".
