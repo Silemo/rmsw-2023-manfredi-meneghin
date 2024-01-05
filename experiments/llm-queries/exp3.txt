@@ -185,7 +185,7 @@ Completeness (Is the answer complete?): the answer is complete, considering all 
 
 Clarity (Is the answer easy to read?): the answer is easy to read even if few errors in the deductive reasoning, reduce clarity.
 
-Coherence (Is the answer following a correct logical flow?): the answer is not coherent, containing some statement that cannot be deduced through reasoning.
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent, containing some statements that cannot be deduced through reasoning.
 This is because of more than one reason. Firstly, the statement "If B is a knight, then B's statement "Exactly one of us is a knave" would be true,
 which means that both A and C are knaves" is incorrect, as the fact that B is a knight, would imply that either A or C are a knave, but not both. 
 Secondly, the statement "However, this contradicts A's statement that "All of us are knaves". Therefore, B cannot be a knight" is incorrect, as we stated
