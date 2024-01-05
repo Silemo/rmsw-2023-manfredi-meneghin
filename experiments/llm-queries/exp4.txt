@@ -151,23 +151,20 @@ This configuration satisfies all the statements made by Jim, Jon, and Joe.
 
 Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
-Accuracy (Is the answer correct?): the answer is correct. It correctly identified the two possible models of the solution 
-(A-knave, B-knave, C-knight; A-knave, B-knight, C-knight). However the answer still contains some erroneous lines of reasoning, 
-suggesting that GPT-3.5 has not fully understood the question.
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that Jim is a Knave, Joe is a Knight and Jon is a Knave. 
+The answer only correctly identifies Jon as a knave.
 
-Completeness (Is the answer complete?): the answer is complete, considering all possible scenarios.
+Completeness (Is the answer complete?): the answer is incomplete, as it does not consider all scenarios. If Jim is a Knight and Jon a Knave, this would
+make his message true, thus contradicting the hypothesis that knaves always lie. This and other similar relationships between the three people
+are not considered.
 
-Clarity (Is the answer easy to read?): the answer is easy to read even if few errors in the deductive reasoning, reduce clarity.
+Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
 
-Coherence (Is the answer following a correct logical flow?): the answer is not coherent, containing some statement that cannot be deduced through reasoning.
-This is because of more than one reason. Firstly, the statement "If B is a knight, then B's statement "Exactly one of us is a knave" would be true,
-which means that both A and C are knaves" is incorrect, as the fact that B is a knight, would imply that either A or C are a knave, but not both. 
-Secondly, the statement "However, this contradicts A's statement that "All of us are knaves". Therefore, B cannot be a knight" is incorrect, as we stated
-in the previous paragraph that A is a knave, and so its statement is false. This conclusion however, is not considered in the solution, making the answer even 
-less coherent. Thirdly, the statement "it means that C must be the remaining possibility, which is a knight" does not state what that possibility is. 
-Here the answer should have explicited that C could not be a knave, because: if B and C are knaves, it would make true A's statement, contradicting
-the knave hypothesis (knaves always lie) and on the other hand, if B is a knight and C is a knave, it would make false B's statement, contradicting 
-the knight hypothesis (knights always tell the truth).
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent, containing some statements that cannot be deduced through reasoning.
+The first mistake, already cited in the completeness section, is the following. If Jim is a Knight and Jon a Knave, this would
+make his message true, thus contradicting the hypothesis that knaves always lie. This and other similar relationships between the three people
+are not considered. The second mistake, is that the sentence "Neither Jim nor Jon are knights" should be interpreted as "Jim and Jon are not both knights",
+while here it seems to be interpreted as "Jim is not a knight or Jon is not a knight", which is incorrect.
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ 
 Let's analyze the statements one by one.
@@ -210,17 +207,22 @@ In conclusion:
 
 Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
-Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
-The answer captures one of these scenarios (A-knave, B-knight and C-knight) but not the other scenario.
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that Jim is a Knave, Joe is a Knight and Jon is a Knave. 
+The answer only correctly identifies Jon as a knave.
 
-Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or false in those and looking for contradictions.
-Nonetheless, errors in the deductive reasoning, don't allow GPT-4 to understand the full picture of the problem.
+Completeness (Is the answer complete?): the answer is incomplete, as it does not consider all scenarios. If Jim is a Knight and Jon a Knave, this would
+make his message true, thus contradicting the hypothesis that knaves always lie. This and other similar relationships between the three people
+are not considered.
 
 Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
 
-Coherence (Is the answer following a correct logical flow?): the answer is not coherent. In particular, the statement "But if B were a knave, 
-then B's statement would be true, .... therefore, B cannot be a knave" cannot be deduced from the previous sentence, as if B were a knave, 
-its statement would still be false, because we know that A is a knave, and so there are at least two knaves, and not "exactly one".
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent, containing some statements that cannot be deduced through reasoning.
+The first mistake, already cited in the completeness section, is the following. If Jim is a Knight and Jon a Knave, this would
+make his message true, thus contradicting the hypothesis that knaves always lie. This and other similar relationships between the three people
+are not considered. Secondly, a notable mistake that we see is the inability of the model to recognize its own mistake, 
+even if there is some line of reasoning going in the right direction. For example the model reviews the statements to verify if they match 
+with the sentences of the three island inhabitants. This makes the model doubt about its initial decision to
+identify Jon as a knight, but the model does not turn back on why Jon was counted as Knave (see Joe statement).
 
 ############################################# Few-shot CoT answers: #############################################################
 
@@ -229,23 +231,22 @@ To solve the second problem, we can use a similar approach. Let's denote Jim as 
 From Jim's statement, "Joe is a knave or I am a knight", we can represent it as m(J) ↔ (knave(E) ∨ knight(J)).
 From Jon's statement, "Jim could claim that I am a knave", we have m(O) ↔ (m(J) ↔ knave(O)).
 From Joe's statement, "Neither Jim nor Jon are knights", we get m(E) ↔ ¬(knight(J) ∧ knight(O)).
-We can then analyze the truth values for the statements and deduce the type of each person. Let's solve this and find out the actual types of Jim, Jon, and Joe.
+We can then analyze the truth values for the statements and deduce the type of each person. 
+Let's solve this and find out the actual types of Jim, Jon, and Joe.
 
 ////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
+Relevance (Is the answer on point?): the answer is not relevant, giving only an introduction to the knights and knaves problem without solving it. 
 
-Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
-The answer captures partially one of these scenarios (A-knave, B-knave) but not the full scenario or other scenarios.
+Accuracy (Is the answer correct?): the answer is incorrect, as it is not given. The correct answer would be that Jim is a Knave, Joe is a Knight and 
+Jon is a Knave.
 
-Completeness (Is the answer complete?): the answer is not complete because it does not discuss the possible scenarios regarding C and how they relate to A's and B's
-statements.
+Completeness (Is the answer complete?): the answer is not complete because it does not even attempt at solving the problem.
 
-Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
+Clarity (Is the answer easy to read?): the answer is not given, only a small introduction is given, that is quite readable.
 
-Coherence (Is the answer following a correct logical flow?): the answer is not coherent. In particular, the statement "If B is a knight, 
-then this statement would be false because both A and B would be knights. Therefore, B must be a knave" is incorrect as we stated before that A is a knave and not
-a knight. 
+Coherence (Is the answer following a correct logical flow?): the answer does not show logical reasoning. It is thus impossible to determine
+if the llm would have reasoned correctly or not.
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ 
 Let's analyze each statement one by one:
@@ -258,11 +259,14 @@ Jim says: "Joe is a knave or I am a knight".
 Jon says: "Jim could claim that I am a knave".
 - If Jon is a knight, he is telling the truth, and indeed Jim could claim that because knights and knaves can claim anything about the other.
 - If Jon is a knave, then his statement is a lie. If his statement is a lie, it means that Jim could not claim that Jon is a knave. 
-  But since knaves can lie, Jim could indeed claim that Jon is a knave. This creates a paradox, which implies that Jon must be a knight, as this is the only way his statement is logically consistent.
+  But since knaves can lie, Jim could indeed claim that Jon is a knave. This creates a paradox, which implies that Jon must be a knight, 
+  as this is the only way his statement is logically consistent.
 
 Joe says: "Neither Jim nor Jon are knights".
-- If Joe is a knight, then his statement must be true, meaning that Jim and Jon are both knaves. However, we've established that Jon's statement means he must be a knight, so Joe cannot be a knight, because his statement would be false.
-- If Joe is a knave, then his statement is false, which means that at least one of Jim or Jon must be a knight. We've already deduced that Jon is a knight, so this statement checks out.
+- If Joe is a knight, then his statement must be true, meaning that Jim and Jon are both knaves. However, we've established that 
+  Jon's statement means he must be a knight, so Joe cannot be a knight, because his statement would be false.
+- If Joe is a knave, then his statement is false, which means that at least one of Jim or Jon must be a knight. 
+  We've already deduced that Jon is a knight, so this statement checks out.
 
 From this analysis, we can deduce the following:
 - Jon is a knight because his statement is logically consistent only if he is telling the truth.
@@ -278,19 +282,21 @@ Joe is a knave.
 
 Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
-Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
-The answer captures one of these scenarios (A-knave, B-knight and C-knight) but not the other scenario.
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that Jim is a Knave, Joe is a Knight and 
+Jon is a Knave. The correct answer is the logical opposite of the outputted one. 
 
-Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or false in those and looking for contradictions.
-Nonetheless, errors in the deductive reasoning, don't allow GPT-4 to understand the full picture of the problem.
+Completeness (Is the answer complete?): the answer outlines various possible scenario explaning how the statement would be true 
+or false in those and looking for contradictions. Nonetheless, it fails at identifying these contradictions and it also
+does not explore all the implications of the messages of different users.
 
 Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
 
-Coherence (Is the answer following a correct logical flow?): the answer is not coherent. This is because of more than one reason. 
-First, the answer already assumed as "determined" that A is a knave, not expliciting the reasoning behind it. Second, the statement 
-"This would mean that there is exactly one knight, which would make B's statement accidentally true" is incorrect, as B's statement refers to the exact number
-of knaves and not knights. Third, the statement "it follows that C cannot be a knave. Otherwise, we would have two knaves, 
-which would contradict B's truthful statement" cannot be deduced from the previous sentence. C is in fact a knight but this is either to not to contradict A statement (if B is a knave), or to not contradict B statement (if B is a knight).
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent, containing some statements that cannot be deduced through reasoning.
+Firstly, if Jim is a Knight, then the sentence that he says "Joe is a knave or I am a knight" does not imply that Joe is a knave, because of the "or".
+Secondly, the sentence "knights and knaves can claim anything about the other" just does not make sense, as also for claims, knaves would have to lie
+and knights to tell the truth, so they can "claim anything". Thirdly, if Jim is a knave, it would only claim the false on Jon 
+(so if Jon is a knight it would claim that he is a knave and vice-versa). This means that if we say that Jim is a knave, we can have two scenarios,
+Jon is a knight or Jon is a knave. And this creates not contradiction. 
 
 ############################################# Zero-shot SAT-LM answers: #############################################################
 
@@ -318,12 +324,13 @@ You can run this script using Mace4 to find a model that satisfies the specified
 
 ////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, only resembling it and 
-it does not work if inputted into Mace4.
+Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, 
+only resembling it and it does not work if inputted into Mace4.
 
 Accuracy (Is the answer correct?): the answer is incorrect. The Mace4 script is not valid and if inputted into Mace4 a "Fatal Error: sread_term error" is raised.
 
-Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete.
+Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete. Note that the script does not 
+include the three inhabitants statements.
 
 Clarity (Is the answer easy to read?): the answer is difficult to read, being written in a code that only resembles Mace4, so that it does not follow its guidelines.
 
@@ -380,7 +387,8 @@ it does not work if inputted into Mace4.
 
 Accuracy (Is the answer correct?): the answer is incorrect. The Mace4 script is not valid and if inputted into Mace4 a "Fatal Error: sread_term error" is raised.
 
-Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete.
+Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete. Note that the script does not 
+include the three inhabitants statements.
 
 Clarity (Is the answer easy to read?): the answer is difficult to read, being written in a code that only resembles Mace4, so that it does not follow its guidelines.
 
@@ -412,15 +420,16 @@ In this script, we define the island of truth and the puzzle, and then use Mace4
 
 ////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knights and knaves problem.
 
-Accuracy (Is the answer correct?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Accuracy (Is the answer correct?): the answer is incorrect. While the Mace4 script is syntactically correct, and produces an output without errors, it 
+does not correctly map the problem into code. The line "m(jon) <−> knave(jim)." should have been "m(jon) <−> ((knight(jim) & knave(jon)) | (knave(jim) & knight(jon)))."
 
-Completeness (Is the answer complete?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Completeness (Is the answer complete?): the answer is complete, providing the requested code.
 
-Clarity (Is the answer easy to read?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Clarity (Is the answer easy to read?): the answer is easy to read, providing a well written Mace4 script.
 
-Coherence (Is the answer following a correct logical flow?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Coherence (Is the answer following a correct logical flow?): the answer correctly creates the script, making correct use of assign() and formulas().
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ? ❌✅  - ans-4d.in
 Let's first analyze the statements made by Jim, Jon, and Joe to understand the logic behind them before writing the Mace4 script for the second question.
@@ -461,7 +470,7 @@ formulas(statements).
 
     % Jon's statement is not a direct claim about the truth, so it does not translate to a logical formula directly.
 
-    ? // CORRECT VERSION :  m(jon) <−> ((knight(jim) & knave(jon)) | (knave(jim) & knight(jon))).  TAUTOLOGY?
+    ❌ // CORRECT VERSION :  m(jon) <−> ((knight(jim) & knave(jon)) | (knave(jim) & knight(jon))). 
 
     % Joe's statement: "Neither Jim nor Jon are knights"
     m(joe) <-> (-knight(jim) & -knight(jon)).
@@ -477,9 +486,8 @@ It will give you the models that satisfy the logical constraints based on the st
 Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knights and knaves problem.
 
 Accuracy (Is the answer correct?): the answer is incorrect. While the Mace4 script is syntactically correct, and produces an output without errors, it 
-does not correctly map the problem into code. For instance A's statement "All of us are knaves" is mistakenly written as 
-"m(a) <-> -((knight(a) & knight(b) & knight(c)) | (knave(a) & knave(b) & knave(c)))." while the correct mapping would have been 
-simply "m(a) <−> (knave(a) & knave(b) & knave(c))." On the other hand, B's statement is reported correctly in the Mace4 formula.
+does not correctly map the problem into code. The code is nearly entirely correct except for Jon's statement that is not correctly mapped.
+The correct mapping would be "m(jon) <−> ((knight(jim) & knave(jon)) | (knave(jim) & knight(jon))). "
 
 Completeness (Is the answer complete?): the answer is complete, providing the requested code. 
 
