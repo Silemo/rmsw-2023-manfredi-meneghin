@@ -267,23 +267,20 @@ So, the man in blue is the spy, the man in red is the knave, and the man in gree
 
 Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
-Accuracy (Is the answer correct?): the answer is correct. It correctly identified the two possible models of the solution 
-(A-knave, B-knave, C-knight; A-knave, B-knight, C-knight). However the answer still contains some erroneous lines of reasoning, 
-suggesting that GPT-3.5 has not fully understood the question.
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that the man in red is the knight,
+the man in blue is the knave and the man in green is the spy. The answer fails to identify the identity of any inhabitant.
 
-Completeness (Is the answer complete?): the answer is complete, considering all possible scenarios.
+Completeness (Is the answer complete?): the answer is not complete, failing to consider all possible scenarios and to identify the 
+contradictions within each one of them.
 
 Clarity (Is the answer easy to read?): the answer is easy to read even if few errors in the deductive reasoning, reduce clarity.
 
 Coherence (Is the answer following a correct logical flow?): the answer is not coherent, containing some statement that cannot be deduced through reasoning.
-This is because of more than one reason. Firstly, the statement "If B is a knight, then B's statement "Exactly one of us is a knave" would be true,
-which means that both A and C are knaves" is incorrect, as the fact that B is a knight, would imply that either A or C are a knave, but not both. 
-Secondly, the statement "However, this contradicts A's statement that "All of us are knaves". Therefore, B cannot be a knight" is incorrect, as we stated
-in the previous paragraph that A is a knave, and so its statement is false. This conclusion however, is not considered in the solution, making the answer even 
-less coherent. Thirdly, the statement "it means that C must be the remaining possibility, which is a knight" does not state what that possibility is. 
-Here the answer should have explicited that C could not be a knave, because: if B and C are knaves, it would make true A's statement, contradicting
-the knave hypothesis (knaves always lie) and on the other hand, if B is a knight and C is a knave, it would make false B's statement, contradicting 
-the knight hypothesis (knights always tell the truth).
+Firstly, the identity of the man in blue cannot be determined only by considering the scenario in which the blue is a knave and a knight. The answer
+does not take into consideration that the messages can be false, so they can contradict each other. Secondly, a contradiction that is not identified 
+is contained in the second part of the answer. Red is identified erroneously as a knave and green as a knight. This error can be highlighted by the 
+contradiction that if red lies then green is not the spy. If green is the knight then red is the spy. But this is a contradiction since we said that 
+red is the knave and not the spy.
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ✅
 Let's analyze the statements made by each person step by step.
@@ -315,17 +312,18 @@ the man in blue is the knave (since his statement is a lie), and the man in gree
 
 Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
-Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
-The answer captures one of these scenarios (A-knave, B-knight and C-knight) but not the other scenario.
+Accuracy (Is the answer correct?): the answer is correct. It correctly identified the valid solution, i.e. man in red is the knight, man in blue is the knave
+and the man in green is the spy. Nonetheless, the answer contains a thinking step which is incorrect, regarding the reason on why green can't be the knight.
 
-Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or false in those and looking for contradictions.
-Nonetheless, errors in the deductive reasoning, don't allow GPT-4 to understand the full picture of the problem.
+Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or false 
+in those and looking for contradictions.
 
-Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
+Clarity (Is the answer easy to read?): the answer is easy to read and follow.
 
-Coherence (Is the answer following a correct logical flow?): the answer is not coherent. In particular, the statement "But if B were a knave, 
-then B's statement would be true, .... therefore, B cannot be a knave" cannot be deduced from the previous sentence, as if B were a knave, 
-its statement would still be false, because we know that A is a knave, and so there are at least two knaves, and not "exactly one".
+Coherence (Is the answer following a correct logical flow?): the answer mostly coherent. It follows a clear line of reasoning, outlining three scenarios
+trying to identify the knight. The only error present is the one regarding the reasons why green can't be a knight. The correct reason on why green can't 
+be the knight, is that if that was the case, red would be the spy, and blue the knave. The problem with this is that blue statement should be false, but it that
+statement were false, red would not be the spy and green would not be telling the truth, and this is a contradiction.
 
 ############################################# Few-shot CoT answers: #############################################################
 
@@ -347,17 +345,14 @@ and the man wearing green must be the knave.
 
 Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
-Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
-The answer captures partially one of these scenarios (A-knave, B-knave) but not the full scenario or other scenarios.
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that man in red is the knight, man in blue is the knave
+and the man in green is the spy. The answer identified correctly the man in the red shirt as the knight.
 
-Completeness (Is the answer complete?): the answer is not complete because it does not discuss the possible scenarios regarding C and how they relate to A's and B's
-statements.
+Completeness (Is the answer complete?): the answer is not complete because it does not show any kind of reasoning process creating or considering scenarios.
 
 Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
 
-Coherence (Is the answer following a correct logical flow?): the answer is not coherent. In particular, the statement "If B is a knight, 
-then this statement would be false because both A and B would be knights. Therefore, B must be a knave" is incorrect as we stated before that A is a knave and not
-a knight. 
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent as it lacks any reasoning behind the given answer to the puzzle.
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ✅
 Let's analyze the statements made by each person in the second scenario:
@@ -388,23 +383,20 @@ So, in the second scenario, the knight is the man in red, the knave is the man i
 
 Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
-Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
-The answer captures one of these scenarios (A-knave, B-knight and C-knight) but not the other scenario.
+Accuracy (Is the answer correct?): the answer is correct. It correctly identified the valid solution, i.e. man in red is the knight, man in blue is the knave
+and the man in green is the spy.
 
-Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or false in those and looking for contradictions.
-Nonetheless, errors in the deductive reasoning, don't allow GPT-4 to understand the full picture of the problem.
+Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or 
+false in those and looking for contradictions.
 
-Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
+Clarity (Is the answer easy to read?): the answer is easy to read with a clear line of reasoning.
 
-Coherence (Is the answer following a correct logical flow?): the answer is not coherent. This is because of more than one reason. 
-First, the answer already assumed as "determined" that A is a knave, not expliciting the reasoning behind it. Second, the statement 
-"This would mean that there is exactly one knight, which would make B's statement accidentally true" is incorrect, as B's statement refers to the exact number
-of knaves and not knights. Third, the statement "it follows that C cannot be a knave. Otherwise, we would have two knaves, 
-which would contradict B's truthful statement" cannot be deduced from the previous sentence. C is in fact a knight but this is either to not to contradict A statement (if B is a knave), or to not contradict B statement (if B is a knight).
+Coherence (Is the answer following a correct logical flow?): the answer is coherent, with a clear line of reasoning. The answer tries to identify the 
+knight between the inhabitants, and doing so it is excluding each possibility.
 
 ############################################# Zero-shot SAT-LM answers: #############################################################
 
------------------------------------------- gpt3.5 : ------------------------------------------------------------ ❌ ✅ - ans-5a.in
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌ - ans-5a.in
 To solve this problem using Mace4, you can use the following script:
 
 formulas(assumptions).
@@ -447,17 +439,18 @@ When you run the script, Mace4 will output a model that identifies the knight, k
 ////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
 Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, only resembling it and 
-it does not work if inputted into Mace4.
+it does not work if inputted into Mace4. Also notably, no statement of the inhabitants is mapped.
 
 Accuracy (Is the answer correct?): the answer is incorrect. The Mace4 script is not valid and if inputted into Mace4 a "Fatal Error: sread_term error" is raised.
 
-Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete.
+Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete. It surely lacks reference to 
+the inhabitants' statements.
 
 Clarity (Is the answer easy to read?): the answer is difficult to read, being written in a code that only resembles Mace4, so that it does not follow its guidelines.
 
 Coherence (Is the answer following a correct logical flow?): the answer is not understandable, so it can't be determined if it is following a correct logical flow.
 
------------------------------------------- gpt4 : ------------------------------------------------------------ ❌ ✅ - ans-5b.in
+------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ - ans-5b.in
 To solve this puzzle using Mace4, we'll need to encode the problem into a formal specification that Mace4 can interpret. 
 We will use propositional logic to represent the statements made by the three individuals and the properties of knights, knaves, and spies.
 Here is a possible Mace4 script to encode the problem:
@@ -514,11 +507,12 @@ and green that satisfies all of the conditions above.
 ////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
 Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, only resembling it and 
-it does not work if inputted into Mace4.
+it does not work if inputted into Mace4. Also notably, no statement of the inhabitants is mapped.
 
 Accuracy (Is the answer correct?): the answer is incorrect. The Mace4 script is not valid and if inputted into Mace4 a "Fatal Error: sread_term error" is raised.
 
-Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete.
+Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete. It surely lacks reference to 
+the inhabitants' statements.
 
 Clarity (Is the answer easy to read?): the answer is difficult to read, being written in a code that only resembles Mace4, so that it does not follow its guidelines.
 
@@ -527,7 +521,7 @@ Coherence (Is the answer following a correct logical flow?): the answer is not u
 
 ############################################# Few-shot SAT-LM answers: #############################################################
 
------------------------------------------- gpt3.5 : ------------------------------------------------------------ ❌ ✅ - ans-5c.in
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ✅ - ans-5c.in
 I can help you with the Mace4 script for the second question. Here's the Mace4 script that can be used to find a model fitting the specification:
 
  assign(domain_size ,3). 
@@ -562,17 +556,17 @@ Let me know if you need further assistance!
 
 ////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knights and knaves problem.
 
-Accuracy (Is the answer correct?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Accuracy (Is the answer correct?): the answer is correct. The Mace4 script is the same script Groza wrote of problem 70.
 
-Completeness (Is the answer complete?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Completeness (Is the answer complete?): the answer is complete, providing the requested code.
 
-Clarity (Is the answer easy to read?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Clarity (Is the answer easy to read?): the answer is easy to read even with a code that is exactly the same Groza wrote.
 
-Coherence (Is the answer following a correct logical flow?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Coherence (Is the answer following a correct logical flow?): the answer correctly creates the script, making correct use of assign() and formulas().
 
------------------------------------------- gpt4 : ------------------------------------------------------------ ❌ ✅ - ans-5d.in
+------------------------------------------ gpt4 : ------------------------------------------------------------ ✅ - ans-5d.in
 
 To solve this puzzle using a Mace4 script, we need to encode the problem in a way that Mace4 can understand and then attempt to find a model 
 that satisfies the conditions. We can set up the problem by defining the inhabitants by their shirt colors and then stating the 
@@ -622,14 +616,10 @@ fits all the given statements and constraints.
 
 Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knights and knaves problem.
 
-Accuracy (Is the answer correct?): the answer is incorrect. While the Mace4 script is syntactically correct, and produces an output without errors, it 
-does not correctly map the problem into code. For instance A's statement "All of us are knaves" is mistakenly written as 
-"m(a) <-> -((knight(a) & knight(b) & knight(c)) | (knave(a) & knave(b) & knave(c)))." while the correct mapping would have been 
-simply "m(a) <−> (knave(a) & knave(b) & knave(c))." On the other hand, B's statement is reported correctly in the Mace4 formula.
+Accuracy (Is the answer correct?): the answer is correct. The Mace4 script is fairly similar to the script Groza wrote of problem 70.
 
-Completeness (Is the answer complete?): the answer is complete, providing the requested code. 
+Completeness (Is the answer complete?): the answer is complete, providing the requested code.
 
-Clarity (Is the answer easy to read?): the answer is easy to read, providing a well written Mace4 script. An additional comment is present that 
-helps the reader understand what each line of code does.
+Clarity (Is the answer easy to read?): the answer is easy to read even with a code that is fairly similar to the one Groza wrote.
 
 Coherence (Is the answer following a correct logical flow?): the answer correctly creates the script, making correct use of assign() and formulas().
