@@ -1,0 +1,489 @@
+################################################  67: #####################################################################
+On the island of knights and knaves, knights always tell the truth, while knaves always lie.
+We have three people, A, B, C, each of them is either a knight or a knave.
+A and B say the following: A: “B is a knave”. B: “A and C are of the same type”. What is C? 
+
+////////////////////////////////////////////// Answer //////////////////////////////////////////////////////////////////////
+With three inhabitants we need a domain size of 3. To avoid isomorphisms we fix a = 0, b = 1, c = 2 . 
+The first message is m(a) ↔ knave(b). The second message implies two cases: m(b) ↔ (((knave(a) ∧ knave(c)) ∨ (knight(a) ∧ knight(c)))). 
+
+Mace4 finds two models:
+Model 1 
+relation(knave(_), [ 1, 0, 1 ])  
+relation(knight(_), [ 0, 1, 0 ]) 
+
+Model 2
+relation(knave(_), [ 0, 1, 1 ])
+relation(knight(_), [ 1, 0, 0 ])
+
+Observe that in both models, c is knave (i.e. the third position corresponding to c = 2 in relation knave is 1 in both models).
+
+------------------------------------------ Mace4 - Book code: ------------------------------------------------------------
+assign(domain_size ,3). 
+assign(max_models,−1).
+
+formulas(island_of_truth ).
+    all x (inhabitant(x) −> knight(x) | knave(x)).
+    all x ((knight(x) −> −knave(x)) & (knave(x) −> −knight(x))). knight(x) −> m(x). knave(x) −> −m(x).
+end_of_list .
+
+formulas ( puzzle ).
+    inhabitant(a) & inhabitant(b) & inhabitant(c).
+    a=0 & b=1 & c=2. %remove isomorphisms
+    m(a) <−> knave(b).
+    m(b) <−> ((knave(a) & knave(c)) | (knight(a) & knight(c))). 
+end_of_list .
+
+
+################################################  68: #####################################################################
+On the island of knights and knaves, knights always tell the truth, while knaves always lie. 
+You are approached by three people: Jim, Jon, and Joe. Jim says: Joe is a knave or I am a knight”. 
+Jon says, “Jim could claim that I am a knave”. Joe says, “Neither Jim nor Jon are knights”. What are they actually?
+
+////////////////////////////////////////////// Answer //////////////////////////////////////////////////////////////////////
+We find a single model: 
+relation(knave(_), [ 1, 0, 1 ])
+relation(knight(_), [ 0, 1, 0 ])
+
+So Jim = 0 (i.e. first position) and Jon = 2 (i.e. third position) are knaves, while
+Joe = 1 (i.e second position) is a knight. 
+
+------------------------------------------ Mace4 - Book code: ------------------------------------------------------------
+formulas ( assumptions ).
+    all x (inhabitant(x) −> knight(x) | knave(x)).
+    all x ((knight(x) −> −knave(x)) & (knave(x) −> −knight(x))). 
+    knight(x) −> m(x).
+    knave(x) −> −m(x).
+    
+    inhabitant(jim) & inhabitant(jon) & inhabitant(joe). 
+    jim=0 & joe=1 & jon=2.
+    m(jim) <−> (knave(joe) | knight(jim)).
+    m(jon) <−> ((knight(jim) & knave(jon)) | (knave(jim) & knight(jon))). 
+    m(joe) <−> (−knight(jim) &−knight(jon)).
+end_of_list .
+
+#############################################  Zero-shot CoT prompt: #############################################################
+Question: On the island of knights and knaves, knights always tell the truth, while knaves always lie. 
+You are approached by three people: Jim, Jon, and Joe. Jim says: Joe is a knave or I am a knight”. 
+Jon says, “Jim could claim that I am a knave”. Joe says, “Neither Jim nor Jon are knights”. What are they actually?
+Think step by step.
+
+Answer: ? 
+
+############################################# Few-shot CoT prompt: #############################################################
+Question1: On the island of knights and knaves, knights always tell the truth, while knaves always lie.
+We have three people, A, B, C, each of them is either a knight or a knave.
+A and B say the following: A: “B is a knave”. B: “A and C are of the same type”. What is C? 
+
+Answer1: With three inhabitants we need a domain size of 3. To avoid isomorphisms we fix a = 0, b = 1, c = 2 . 
+The first message is m(a) ↔ knave(b). The second message implies two cases: m(b) ↔ (((knave(a) ∧ knave(c)) ∨ (knight(a) ∧ knight(c))). 
+
+We find two models:
+Model 1 
+relation(knave(_), [ 1, 0, 1 ])  
+relation(knight(_), [ 0, 1, 0 ]) 
+
+Model 2
+relation(knave(_), [ 0, 1, 1 ])
+relation(knight(_), [ 1, 0, 0 ])
+
+Observe that in both models, c is knave (i.e. the third position corresponding to c = 2 in relation knave is 1 in both models).
+
+Question2: On the island of knights and knaves, knights always tell the truth, while knaves always lie. 
+You are approached by three people: Jim, Jon, and Joe. Jim says: Joe is a knave or I am a knight”. 
+Jon says, “Jim could claim that I am a knave”. Joe says, “Neither Jim nor Jon are knights”. What are they actually?
+
+Answer2: ?
+
+############################################# Zero-shot SAT-LM prompt: #############################################################
+Question: On the island of knights and knaves, knights always tell the truth, while knaves always lie. 
+You are approached by three people: Jim, Jon, and Joe. Jim says: Joe is a knave or I am a knight”. 
+Jon says, “Jim could claim that I am a knave”. Joe says, “Neither Jim nor Jon are knights”. What are they actually?
+Write a Mace4 script that can be used to find a model fitting this specification.
+
+Answer: ?
+
+############################################# Few-shot SAT-LM prompt: #############################################################
+Question1: On the island of knights and knaves, knights always tell the truth, while knaves always lie.
+We have three people, A, B, C, each of them is either a knight or a knave.
+A and B say the following: A: “B is a knave”. B: “A and C are of the same type”. What is C? 
+Write a Mace4 script that can be used to find a model fitting this specification.
+
+Answer1: 
+assign(domain_size ,3). 
+assign(max_models,−1).
+
+formulas(island_of_truth ).
+    all x (inhabitant(x) −> knight(x) | knave(x)).
+    all x ((knight(x) −> −knave(x)) & (knave(x) −> −knight(x))). knight(x) −> m(x). knave(x) −> −m(x).
+end_of_list .
+
+formulas ( puzzle ).
+    inhabitant(a) & inhabitant(b) & inhabitant(c).
+    a=0 & b=1 & c=2. %remove isomorphisms
+    m(a) <−> knave(b).
+    m(b) <−> ((knave(a) & knave(c)) | (knight(a) & knight(c))). 
+end_of_list .
+
+
+Question2: On the island of knights and knaves, knights always tell the truth, while knaves always lie. 
+You are approached by three people: Jim, Jon, and Joe. Jim says: Joe is a knave or I am a knight”. 
+Jon says, “Jim could claim that I am a knave”. Joe says, “Neither Jim nor Jon are knights”. What are they actually?
+Write a Mace4 script that can be used to find a model fitting this specification.
+
+Answer2: ?
+
+#############################################  Zero-shot CoT answers: #############################################################
+
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌ 
+Let's solve this logic puzzle step by step.
+1. Let's assume that Jim is a knight. If Jim is a knight, then his statement "Joe is a knave or I am a knight" must be true. 
+   This means that Joe is a knave and Jim is a knight.
+2. According to our assumption, if Jim is a knight, then Jon must be a knave since Jon's statement "Jim could claim that I am a knave" 
+   is false, which would only be the case if Jon is a knave.
+3. Now, let's consider Joe's statement "Neither Jim nor Jon are knights". If Jim is a knight and Jon is a knave, 
+   then this statement is false, which would only be the case if Joe is a knave.
+
+Therefore, based on our assumptions, Jim is a knight, Jon is a knave, and Joe is a knave. 
+This configuration satisfies all the statements made by Jim, Jon, and Joe.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
+
+Accuracy (Is the answer correct?): the answer is correct. It correctly identified the two possible models of the solution 
+(A-knave, B-knave, C-knight; A-knave, B-knight, C-knight). However the answer still contains some erroneous lines of reasoning, 
+suggesting that GPT-3.5 has not fully understood the question.
+
+Completeness (Is the answer complete?): the answer is complete, considering all possible scenarios.
+
+Clarity (Is the answer easy to read?): the answer is easy to read even if few errors in the deductive reasoning, reduce clarity.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent, containing some statement that cannot be deduced through reasoning.
+This is because of more than one reason. Firstly, the statement "If B is a knight, then B's statement "Exactly one of us is a knave" would be true,
+which means that both A and C are knaves" is incorrect, as the fact that B is a knight, would imply that either A or C are a knave, but not both. 
+Secondly, the statement "However, this contradicts A's statement that "All of us are knaves". Therefore, B cannot be a knight" is incorrect, as we stated
+in the previous paragraph that A is a knave, and so its statement is false. This conclusion however, is not considered in the solution, making the answer even 
+less coherent. Thirdly, the statement "it means that C must be the remaining possibility, which is a knight" does not state what that possibility is. 
+Here the answer should have explicited that C could not be a knave, because: if B and C are knaves, it would make true A's statement, contradicting
+the knave hypothesis (knaves always lie) and on the other hand, if B is a knight and C is a knave, it would make false B's statement, contradicting 
+the knight hypothesis (knights always tell the truth).
+
+------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ 
+Let's analyze the statements one by one.
+
+1. Jim says: "Joe is a knave or I am a knight".
+    This is a logical statement of the form "A or B". Now, if Jim were a knave, this statement would have to be a lie. 
+    But for an "or" statement to be false, both parts would have to be false. This would mean that Joe is not a knave and Jim is not a knight, 
+    which would be a contradiction because we would have a knave (Jim) telling the truth. Therefore, the statement must be true, 
+    which means Jim must be a knight. This doesn't tell us directly about Joe, because if Jim is a knight, the statement "Joe is a knave or I am a knight" 
+    is true regardless of whether Joe is a knave or not, as long as the "I am a knight" part is true.
+
+2. Jon says, "Jim could claim that I am a knave".
+    If Jon were a knight, then his statement would be true, because Jim, being a knight as well, could indeed claim anything that is true. 
+    However, if Jon were a knave, then he would be lying with this statement, which would mean Jim could not claim that Jon is a knave. 
+    But since we've established that Jim is a knight, Jim could indeed claim that Jon is a knave if it were true. 
+    Therefore, Jon's statement doesn't give us a direct contradiction, and without additional information, 
+    we can't determine whether Jon is a knight or a knave based on this statement alone.
+
+3. Joe says, "Neither Jim nor Jon are knights".
+    Since we've already established that Jim is a knight, this statement by Joe must be false, 
+    which means Joe is a knave (because knights cannot lie and Joe just did).
+    
+So we have:
+- Jim is a knight (based on his statement being true).
+- Jon's knight or knave status is undetermined based on his statement alone.
+- Joe is a knave (because he lied about Jim being a knight).
+
+Now let's revisit Jon's statement with our new knowledge. Since Jim is a knight and Joe is a knave, if Jon were also a knight, 
+his statement would be true. But since Jon is saying that Jim could claim that he (Jon) is a knave, and we've already established 
+Jim would only tell the truth, then for Jon's statement to be true, Jon would have to be a knave. 
+Jon is essentially saying that it's possible for Jim to tell a lie (claiming that a knight, Jon, is a knave), 
+which cannot be true since Jim is a knight and cannot lie. Thus, Jon must be a knave.
+
+In conclusion:
+- Jim is a knight.
+- Jon is a knave.
+- Joe is a knave.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
+
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
+The answer captures one of these scenarios (A-knave, B-knight and C-knight) but not the other scenario.
+
+Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or false in those and looking for contradictions.
+Nonetheless, errors in the deductive reasoning, don't allow GPT-4 to understand the full picture of the problem.
+
+Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent. In particular, the statement "But if B were a knave, 
+then B's statement would be true, .... therefore, B cannot be a knave" cannot be deduced from the previous sentence, as if B were a knave, 
+its statement would still be false, because we know that A is a knave, and so there are at least two knaves, and not "exactly one".
+
+############################################# Few-shot CoT answers: #############################################################
+
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌ 
+To solve the second problem, we can use a similar approach. Let's denote Jim as J, Jon as O, and Joe as E.
+From Jim's statement, "Joe is a knave or I am a knight", we can represent it as m(J) ↔ (knave(E) ∨ knight(J)).
+From Jon's statement, "Jim could claim that I am a knave", we have m(O) ↔ (m(J) ↔ knave(O)).
+From Joe's statement, "Neither Jim nor Jon are knights", we get m(E) ↔ ¬(knight(J) ∧ knight(O)).
+We can then analyze the truth values for the statements and deduce the type of each person. Let's solve this and find out the actual types of Jim, Jon, and Joe.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
+
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
+The answer captures partially one of these scenarios (A-knave, B-knave) but not the full scenario or other scenarios.
+
+Completeness (Is the answer complete?): the answer is not complete because it does not discuss the possible scenarios regarding C and how they relate to A's and B's
+statements.
+
+Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent. In particular, the statement "If B is a knight, 
+then this statement would be false because both A and B would be knights. Therefore, B must be a knave" is incorrect as we stated before that A is a knave and not
+a knight. 
+
+------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ 
+Let's analyze each statement one by one:
+Jim says: "Joe is a knave or I am a knight".
+- If Jim is a knight (truth-teller), then his statement must be true. Therefore, either Joe is a knave or Jim is a knight. 
+  Since Jim can't be a knight if he's lying, the statement simplifies to Joe being a knave.
+- If Jim is a knave (liar), then his statement must be false. That would mean that Joe is not a knave and Jim is not a knight. 
+  However, since Jim is a knave in this scenario, we don't get a contradiction, so we can't determine the truth from this alone.
+
+Jon says: "Jim could claim that I am a knave".
+- If Jon is a knight, he is telling the truth, and indeed Jim could claim that because knights and knaves can claim anything about the other.
+- If Jon is a knave, then his statement is a lie. If his statement is a lie, it means that Jim could not claim that Jon is a knave. 
+  But since knaves can lie, Jim could indeed claim that Jon is a knave. This creates a paradox, which implies that Jon must be a knight, as this is the only way his statement is logically consistent.
+
+Joe says: "Neither Jim nor Jon are knights".
+- If Joe is a knight, then his statement must be true, meaning that Jim and Jon are both knaves. However, we've established that Jon's statement means he must be a knight, so Joe cannot be a knight, because his statement would be false.
+- If Joe is a knave, then his statement is false, which means that at least one of Jim or Jon must be a knight. We've already deduced that Jon is a knight, so this statement checks out.
+
+From this analysis, we can deduce the following:
+- Jon is a knight because his statement is logically consistent only if he is telling the truth.
+- Joe is a knave because his statement that "Neither Jim nor Jon are knights" is proven false by Jon being a knight.
+- Jim's statement "Joe is a knave or I am a knight" must be true because Joe is indeed a knave. Therefore, Jim can be a knight, and his statement doesn't necessarily make him a knave.
+
+In summary:
+Jim is a knight.
+Jon is a knight.
+Joe is a knave.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
+
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
+The answer captures one of these scenarios (A-knave, B-knight and C-knight) but not the other scenario.
+
+Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or false in those and looking for contradictions.
+Nonetheless, errors in the deductive reasoning, don't allow GPT-4 to understand the full picture of the problem.
+
+Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent. This is because of more than one reason. 
+First, the answer already assumed as "determined" that A is a knave, not expliciting the reasoning behind it. Second, the statement 
+"This would mean that there is exactly one knight, which would make B's statement accidentally true" is incorrect, as B's statement refers to the exact number
+of knaves and not knights. Third, the statement "it follows that C cannot be a knave. Otherwise, we would have two knaves, 
+which would contradict B's truthful statement" cannot be deduced from the previous sentence. C is in fact a knight but this is either to not to contradict A statement (if B is a knave), or to not contradict B statement (if B is a knight).
+
+############################################# Zero-shot SAT-LM answers: #############################################################
+
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌  - ans-4a.in
+To find a model fitting this specification using Mace4, you can use the following script:
+
+formulas(assumptions).
+
+  K(jim = knave).
+  K(jon = knave).
+  K(joe = knave).
+
+  (jim = knight) | (jim = knave).
+  (jon = knight) | (jon = knave).
+  (joe = knight) | (joe = knave).
+
+end_of_list.
+
+formulas(goals).
+
+  (jim = knight) & (jon = knave) & (joe = knave).
+
+end_of_list.
+You can run this script using Mace4 to find a model that satisfies the specified conditions.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, only resembling it and 
+it does not work if inputted into Mace4.
+
+Accuracy (Is the answer correct?): the answer is incorrect. The Mace4 script is not valid and if inputted into Mace4 a "Fatal Error: sread_term error" is raised.
+
+Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete.
+
+Clarity (Is the answer easy to read?): the answer is difficult to read, being written in a code that only resembles Mace4, so that it does not follow its guidelines.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not understandable, so it can't be determined if it is following a correct logical flow.
+
+------------------------------------------ gpt4 : ------------------------------------------------------------ ❌  - ans-4b.in
+To solve this logic puzzle, we can use a formal logic tool such as Mace4 to search for a model that satisfies the given statements. 
+Here, we will represent knights as truth-tellers (T) and knaves as liars (F).
+
+We have three individuals: Jim, Jon, and Joe. Let's represent them as jim, jon, and joe respectively. 
+We will use propositional variables to represent whether each person is a knight or a knave. 
+For example, knight_jim will be true if Jim is a knight and false if Jim is a knave. 
+Similarly, we will have knight_jon and knight_joe.
+
+Jim's statement "Joe is a knave or I am a knight" can be represented as: knight_joe -> knight_jim, 
+because if Joe is a knight (truth-teller), Jim must also be a knight since knights tell the truth, 
+and if Joe is a knave (liar), Jim's statement can be anything.
+
+Jon's statement "Jim could claim that I am a knave" doesn't actually provide any logical constraint, 
+because anyone could claim anything about someone else regardless of their own truthfulness. 
+Therefore, this statement doesn't translate into a logical constraint in our model.
+
+Joe's statement "Neither Jim nor Jon are knights" can be represented as: ~knight_jim & ~knight_jon, meaning both Jim and Jon are not knights.
+
+Here's a Mace4 script that can be used to find a model fitting this specification:
+
+formulas(assumptions).
+
+% Encoding the behavior of knights and knaves
+% If someone is a knight, their statement is true; if they are a knave, their statement is false.
+knight(jim) <-> (knight(joe) | knight(jim)).
+knight(jon) <-> (knight(jim) -> knight(jon)).
+knight(joe) <-> (~knight(jim) & ~knight(jon)).
+
+% Ensure that each person is either a knight or a knave, but not both
+- knight(jim) <-> knave(jim).
+- knight(jon) <-> knave(jon).
+- knight(joe) <-> knave(joe).
+
+end_of_list.
+
+To run this in Mace4, you would need to replace the placeholder function knight with a valid Mace4 function and specify 
+the domain of individuals (in this case, jim, jon, joe). Make sure that knight and knave are properly defined in the Mace4 input language, 
+and adjust the syntax accordingly.
+Once you run Mace4 with the above script, it will try to find a model that satisfies these constraints. 
+The model it finds will tell us who is a knight and who is a knave. If there are multiple models, 
+it means there are multiple solutions to the puzzle. If there are no models, then there is a contradiction, 
+and the puzzle has no solution given the constraints.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, only resembling it and 
+it does not work if inputted into Mace4.
+
+Accuracy (Is the answer correct?): the answer is incorrect. The Mace4 script is not valid and if inputted into Mace4 a "Fatal Error: sread_term error" is raised.
+
+Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete.
+
+Clarity (Is the answer easy to read?): the answer is difficult to read, being written in a code that only resembles Mace4, so that it does not follow its guidelines.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not understandable, so it can't be determined if it is following a correct logical flow.
+
+
+############################################# Few-shot SAT-LM answers: #############################################################
+
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌  - ans-4c.in
+To solve the second puzzle, you can use the following Mace4 script:
+
+assign(domain_size, 3).
+assign(max_models, -1).
+
+formulas(island_of_truth).
+    all x (inhabitant(x) −> knight(x) | knave(x)).
+    all x ((knight(x) −> −knave(x)) & (knave(x) −> −knight(x))). knight(x) −> m(x). knave(x) −> −m(x).
+end_of_list.
+
+formulas(puzzle).
+    inhabitant(jim) & inhabitant(jon) & inhabitant(joe).
+    jim=0 & jon=1 & joe=2. %remove isomorphisms
+    m(jim) <−> (knave(joe) | knight(jim)).
+    m(jon) <−> knave(jim). ❌ // CORRECT VERSION :  m(jon) <−> ((knight(jim) & knave(jon)) | (knave(jim) & knight(jon))). 
+    m(joe) <−> (knave(jim) & knave(jon)). 
+end_of_list.
+
+In this script, we define the island of truth and the puzzle, and then use Mace4 to find a model that fits the specified conditions.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+
+Accuracy (Is the answer correct?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+
+Completeness (Is the answer complete?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+
+Clarity (Is the answer easy to read?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+
+Coherence (Is the answer following a correct logical flow?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+
+------------------------------------------ gpt4 : ------------------------------------------------------------ ? ❌✅  - ans-4d.in
+Let's first analyze the statements made by Jim, Jon, and Joe to understand the logic behind them before writing the Mace4 script for the second question.
+
+1. Jim says: "Joe is a knave or I am a knight".
+    - If Jim is a knight, then his statement must be true, which means Joe is a knave or Jim is indeed a knight, which would be a truthful statement.
+    - If Jim is a knave, then his statement must be false, which means neither is Joe a knave, nor is Jim a knight.
+2. Jon says: "Jim could claim that I am a knave".
+    - This statement doesn't give us any information about the truthfulness of Jon, because whether Jon is a knight or a knave, 
+      it's a statement about what Jim could claim, not about the actual state of Jon.
+3. Joe says: "Neither Jim nor Jon are knights".
+    - If Joe is a knight, his statement is true, so both Jim and Jon must be knaves.
+    - If Joe is a knave, his statement is false, so at least one of Jim or Jon is a knight.
+
+Now let's write the Mace4 script that can be used to find a model fitting the specifications of the second question:
+
+assign(domain_size, 3).
+assign(max_models, -1).
+
+formulas(assumptions).
+    % Define inhabitants and their possible states (knight or knave)
+    all x (inhabitant(x) -> (knight(x) | knave(x))).
+    all x (knight(x) -> -knave(x)).
+    all x (knave(x) -> -knight(x)).
+    all x (knight(x) -> m(x)).
+    all x (knave(x) -> -m(x)).
+end_of_list.
+
+formulas(statements).
+    % Define the inhabitants
+    inhabitant(jim) & inhabitant(jon) & inhabitant(joe).
+
+    % Set identifiers to avoid symmetries (only if needed)
+    jim=0 & jon=1 & joe=2.
+
+    % Jim's statement: "Joe is a knave or I am a knight"
+    m(jim) <-> (knave(joe) | knight(jim)).
+
+    % Jon's statement is not a direct claim about the truth, so it does not translate to a logical formula directly.
+
+    ? // CORRECT VERSION :  m(jon) <−> ((knight(jim) & knave(jon)) | (knave(jim) & knight(jon))).  TAUTOLOGY?
+
+    % Joe's statement: "Neither Jim nor Jon are knights"
+    m(joe) <-> (-knight(jim) & -knight(jon)).
+end_of_list.
+
+Please note that Jon's statement is not represented in the script because it doesn't provide 
+a factual claim about his own or Jim's status as a knight or knave.
+You can run this script in Mace4 to find the possible solutions to the puzzle. 
+It will give you the models that satisfy the logical constraints based on the statements given by Jim, Jon, and Joe.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knights and knaves problem.
+
+Accuracy (Is the answer correct?): the answer is incorrect. While the Mace4 script is syntactically correct, and produces an output without errors, it 
+does not correctly map the problem into code. For instance A's statement "All of us are knaves" is mistakenly written as 
+"m(a) <-> -((knight(a) & knight(b) & knight(c)) | (knave(a) & knave(b) & knave(c)))." while the correct mapping would have been 
+simply "m(a) <−> (knave(a) & knave(b) & knave(c))." On the other hand, B's statement is reported correctly in the Mace4 formula.
+
+Completeness (Is the answer complete?): the answer is complete, providing the requested code. 
+
+Clarity (Is the answer easy to read?): the answer is easy to read, providing a well written Mace4 script. An additional comment is present that 
+helps the reader understand what each line of code does.
+
+Coherence (Is the answer following a correct logical flow?): the answer correctly creates the script, making correct use of assign() and formulas().

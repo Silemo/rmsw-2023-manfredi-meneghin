@@ -1,0 +1,711 @@
+################################################  71: #####################################################################
+On a famous island in the Pacific Ocean (whose name I forgot) live three tribes: the Whites, who always tell the truth; 
+the Blacks, who always tell lies; and the Greys, who lie and tell the truth alternatively (although their first answer 
+may be either truth or lie). These natives always gather in groups of three, with one representative of each tribe
+in the group. I approached such a group of three natives, and had the following conversation with the first native: 
+“Are you the White, the Black, or the Grey?” “I am the Grey”. “And what about your friend here?” “He is a Black”. 
+“So, your other friend is the White? ” “Of course”. Was the “other friend” a White, and if not, what was he?
+
+////////////////////////////////////////////// Answer //////////////////////////////////////////////////////////////////////
+The functions n1, n2, and n3 represent the three natives. These natives are distinct. 
+There are two assumptions: (i) Each native belongs to a different tribe; (ii) A native belongs to a single tribe. 
+Depending on who provides the answer, there are three cases:
+
+1. white answers → its answer is true:
+    white(n1) → grey(n1) ∧ black(n2) ∧ white(n3)
+
+2. black answers → its answer is false:
+    black(n1) → ¬grey(n1) ∧ ¬black(n2) ∧ ¬white(n3)
+
+3. grey answers → its answers are true and false alternatively, i.e. there are two 
+   subcases: the first answer is true, respectively the first answer is false:
+    grey(n1) → (grey(n1) ∧ ¬black(n2) ∧ white(n3))∨
+               (¬grey(n1) ∧ black(n2) ∧ white(n3))
+
+Mace4 outputs a single model: n1= 0 n2= 1 n3= 2 c1= 1 c2= 0 c3= 2
+
+relation(black(_), [ 1, 0, 0 ])
+relation(gray(_), [ 0, 0, 1 ])
+relation(white(_), [ 0, 1, 0 ])
+
+Here, c1, c2, and c3 are the Skolem constants (e.g. ∃x white(x) for c1). 
+Hence, n1 (i.e. the person that answers) is black, n2 is white, while n3 is grey.
+
+------------------------------------------ Mace4 - Book code: ------------------------------------------------------------
+assign(domain_size ,3).
+assign ( max_models , −1).
+
+list(distinct).
+    [ n1 , n2 , n3 ] .
+end_of_list .
+
+formulas ( assumptions ).
+    exists x (white(x)) & exists x (black(x)) & exists x (gray(x)).
+    all x (white(x) & white(y) −> x=y). %Each one from a different tribe
+    all x (black(x) & black(y) −> x=y).
+    all x (gray(x) & gray(y) −> x=y).
+
+    all x (white(x) −> −black(x) & −gray(x)). %Each one from a single tribe
+    all x (black(x) −> −white(x) & −gray(x)).
+    all x (gray(x) −> −white(x) & −black(x)).
+end_of_list .
+
+formulas(alltruth_puzzle ).
+    white(n1) −> gray(n1) & black(n2) & white(n3). %Case 1: w answers
+    black(n1) −> −gray(n1) & −black(n2) & −white(n3). %Case 2: b answers
+    gray(n1) −> ( gray(n1) & −black(n2) & white(n3)) | %Case 3: g answers
+                (−gray(n1) & black(n2) & white(n3)).
+end_of_list .
+
+
+################################################  72: #####################################################################
+Three goddesses were sitting in an old Indian temple. Their names were Truth (always telling the truth), 
+Lie (always lying), and Wisdom (sometimes lying). A visitor asked the one on the left: “Who is sitting next to you?” 
+“Truth”, she answered. Then he asked the one in the middle: “Who are you?” “Wisdom”. Last, he asked the one on the right: 
+“Who is your neighbour?” “Lie”, she replied. And then it became clear who was who. Can you determine where each goddess is sitting?
+
+////////////////////////////////////////////// Answer //////////////////////////////////////////////////////////////////////
+We will use propositional logic. Let Truth (T), Wisdom (W), Lie (L) are in left (i.e. 1), 
+middle (i.e. 2) or right (i.e. 3) positions. With three goddesses and three positions, there 
+are nine possible combinations:
+    (T1 ∨ T2 ∨ T3) ∧ (L1 ∨ L2 ∨ L3) ∧ (W1 ∨ W2 ∨ W3) 
+
+Each goddess occupies only one position. For instance, if Truth is on the first position
+she cannot be on the other positions:
+    (T1 → ¬T2 ∧ ¬T3) ∧ (T2 → ¬T1 ∧ ¬T3) ∧(T3 → ¬T1 ∧ ¬T2) 
+
+Each position is occupied by one goddess. For instance, if there is Truth, there can’t be Lie or Wisdom:
+(T1 → ¬L1 ∧ ¬W1) ∧ (T2 → ¬L2 ∧ ¬W2) ∧ (T3 → ¬L3 ∧ ¬W3)
+
+The goddess on the first position says that Truth stays next to her (i.e. position 2, thereby T2). 
+If she is L then the answer is false (¬T2), if she is T then the answer is true (T2), if she is W we cannot infer anything:
+    (L1 → ¬T2) ∧ (T1 → T2) 
+    
+The goddess on the second position says she is Wisdom (i.e. W2). If she is Truth the
+answer is true, if she is Lie the answer is false:
+    (L2 → ¬W2) ∧ (T2 → W2)
+
+The goddess on the third position says that Lie is her neighbour (i.e. L2), which can be true or false:
+    (T3 → L2) ∧ (L3 → ¬L2)
+    
+We find a model in which Lie is in the middle, Truth on the right, and Wisdom on
+the left:
+Model 
+[L1, L2, L3] = [0, 1, 0]
+[T1, T2, T3] = [0, 0, 1]
+[W1, W2, W3] = [1, 0, 0]
+
+------------------------------------------ Mace4 - Book code: ------------------------------------------------------------
+assign(domain_size ,2).
+assign ( max_models , −1).
+
+formulas ( assumptions ).
+    (T1 | T2 | T3) & (L1 | L2 | L3) & (W1 | W2 | W3).
+
+    %T, L and W occupies only one position
+    (T1 −> −T2 & −T3) & (T2 −> −T1 & −T3) & (T3 −> −T1 & −T2).
+    (L1 −> −L2 & −L3) & (L2 −> −L1 & −L3) & (L3 −> −L1 & −L2).
+    (W1 −> −W2 & −W3) & (W2 −> −W1 & −W3) & (W3 −> −W1 & −W2).
+
+    %Each position is occupied by one goddess
+    (T1 −> −L1 & −W1) & (T2 −> −L2 & −W2) & (T3 −> −L3 & −W3).
+    (L1 −> −T1 & −W1) & (L2 −> −T2 & −W2) & (L3 −> −T3 & −W3).
+    (W1 −> −L1 & −T1) & (W2 −> −L2 & −T2) & (W3 −> −L3 & −T3).
+
+    (L1 −> −T2) & (T1 −> T2). % the first answer
+    (L2 −> −W2) & (T2 −> W2). % the second answer
+    (T3 −> L2) & (L3 −> −L2). % the third answer
+end_of_list .
+
+#############################################  Zero-shot CoT prompt: #############################################################
+Question: Three goddesses were sitting in an old Indian temple. Their names were Truth (always telling the truth), 
+Lie (always lying), and Wisdom (sometimes lying). A visitor asked the one on the left: “Who is sitting next to you?” 
+“Truth”, she answered. Then he asked the one in the middle: “Who are you?” “Wisdom”. Last, he asked the one on the right: 
+“Who is your neighbour?” “Lie”, she replied. And then it became clear who was who. Can you determine where each goddess is sitting?
+Think step by step.
+
+Answer: ? 
+
+############################################# Few-shot CoT prompt: #############################################################
+Question1: On a famous island in the Pacific Ocean (whose name I forgot) live three tribes: the Whites, who always tell the truth; 
+the Blacks, who always tell lies; and the Greys, who lie and tell the truth alternatively (although their first answer 
+may be either truth or lie). These natives always gather in groups of three, with one representative of each tribe
+in the group. I approached such a group of three natives, and had the following conversation with the first native: 
+“Are you the White, the Black, or the Grey?” “I am the Grey”. “And what about your friend here?” “He is a Black”. 
+“So, your other friend is the White? ” “Of course”. Was the “other friend” a White, and if not, what was he?
+
+Answer1: 
+The functions n1, n2, and n3 represent the three natives. These natives are distinct. 
+There are two assumptions: (i) Each native belongs to a different tribe; (ii) A native belongs to a single tribe. 
+Depending on who provides the answer, there are three cases:
+
+1. white answers → its answer is true:
+    white(n1) → grey(n1) ∧ black(n2) ∧ white(n3)
+
+2. black answers → its answer is false:
+    black(n1) → ¬grey(n1) ∧ ¬black(n2) ∧ ¬white(n3)
+
+3. grey answers → its answers are true and false alternatively, i.e. there are two 
+   subcases: the first answer is true, respectively the first answer is false:
+    grey(n1) → (grey(n1) ∧ ¬black(n2) ∧ white(n3))∨
+               (¬grey(n1) ∧ black(n2) ∧ white(n3))
+
+Mace4 outputs a single model: n1= 0 n2= 1 n3= 2 c1= 1 c2= 0 c3= 2
+
+relation(black(_), [ 1, 0, 0 ])
+relation(gray(_), [ 0, 0, 1 ])
+relation(white(_), [ 0, 1, 0 ])
+
+
+Here, c1, c2, and c3 are the Skolem constants (e.g. ∃x white(x) for c1). 
+Hence, n1 (i.e. the person that answers) is black, n2 is white, while n3 is grey.
+
+Question2: Three goddesses were sitting in an old Indian temple. Their names were Truth (always telling the truth), 
+Lie (always lying), and Wisdom (sometimes lying). A visitor asked the one on the left: “Who is sitting next to you?” 
+“Truth”, she answered. Then he asked the one in the middle: “Who are you?” “Wisdom”. Last, he asked the one on the right: 
+“Who is your neighbour?” “Lie”, she replied. And then it became clear who was who. Can you determine where each goddess is sitting?
+
+Answer2: ?
+
+############################################# Zero-shot SAT-LM prompt: #############################################################
+Question: Three goddesses were sitting in an old Indian temple. Their names were Truth (always telling the truth), 
+Lie (always lying), and Wisdom (sometimes lying). A visitor asked the one on the left: “Who is sitting next to you?” 
+“Truth”, she answered. Then he asked the one in the middle: “Who are you?” “Wisdom”. Last, he asked the one on the right: 
+“Who is your neighbour?” “Lie”, she replied. And then it became clear who was who. Can you determine where each goddess is sitting?
+Write a Mace4 script that can be used to find a model fitting this specification.
+
+Answer: ?
+
+############################################# Few-shot SAT-LM prompt: #############################################################
+Question1: On a famous island in the Pacific Ocean (whose name I forgot) live three tribes: the Whites, who always tell the truth; 
+the Blacks, who always tell lies; and the Greys, who lie and tell the truth alternatively (although their first answer 
+may be either truth or lie). These natives always gather in groups of three, with one representative of each tribe
+in the group. I approached such a group of three natives, and had the following conversation with the first native: 
+“Are you the White, the Black, or the Grey?” “I am the Grey”. “And what about your friend here?” “He is a Black”. 
+“So, your other friend is the White? ” “Of course”. Was the “other friend” a White, and if not, what was he?
+Write a Mace4 script that can be used to find a model fitting this specification.
+
+Answer1: 
+assign(domain_size ,3).
+assign ( max_models , −1).
+
+list(distinct).
+    [ n1 , n2 , n3 ] .
+end_of_list .
+
+formulas ( assumptions ).
+    exists x (white(x)) & exists x (black(x)) & exists x (gray(x)).
+    all x (white(x) & white(y) −> x=y). %Each one from a different tribe
+    all x (black(x) & black(y) −> x=y).
+    all x (gray(x) & gray(y) −> x=y).
+
+    all x (white(x) −> −black(x) & −gray(x)). %Each one from a single tribe
+    all x (black(x) −> −white(x) & −gray(x)).
+    all x (gray(x) −> −white(x) & −black(x)).
+end_of_list .
+
+formulas(alltruth_puzzle ).
+    white(n1) −> gray(n1) & black(n2) & white(n3). %Case 1: w answers
+    black(n1) −> −gray(n1) & −black(n2) & −white(n3). %Case 2: b answers
+    gray(n1) −> ( gray(n1) & −black(n2) & white(n3)) | %Case 3: g answers
+                (−gray(n1) & black(n2) & white(n3)).
+end_of_list .
+
+
+Question2: Three goddesses were sitting in an old Indian temple. Their names were Truth (always telling the truth), 
+Lie (always lying), and Wisdom (sometimes lying). A visitor asked the one on the left: “Who is sitting next to you?” 
+“Truth”, she answered. Then he asked the one in the middle: “Who are you?” “Wisdom”. Last, he asked the one on the right: 
+“Who is your neighbour?” “Lie”, she replied. And then it became clear who was who. Can you determine where each goddess is sitting?
+Write a Mace4 script that can be used to find a model fitting this specification.
+
+Answer2: ?
+
+#############################################  Zero-shot CoT answers: #############################################################
+
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌ ✅
+Sure! Let's think this through step by step.
+We know that one of the goddesses is always telling the truth, one is always lying, and one sometimes tells the truth and sometimes lies.
+1. The goddess on the left said that Truth is sitting next to her. This means that the goddess on the left cannot be Lie, as Lie would never tell the truth.
+2. The goddess in the middle claimed to be Wisdom. If she were lying, she would be Lie, but that would mean the goddess on the 
+left would be telling the truth, which contradicts what we already established. Therefore, the goddess in the middle must be Wisdom.
+3. The goddess on the right said that Lie is her neighbor. Since we know that the goddess on the left is not Lie, 
+and the goddess in the middle is Wisdom, then the goddess on the right must be Lie.
+
+So, the goddess on the left must be Truth.
+
+Therefore, the goddess on the left is Truth, the goddess in the middle is Wisdom, and the goddess on the right is Lie.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
+
+Accuracy (Is the answer correct?): the answer is correct. It correctly identified the two possible models of the solution 
+(A-knave, B-knave, C-knight; A-knave, B-knight, C-knight). However the answer still contains some erroneous lines of reasoning, 
+suggesting that GPT-3.5 has not fully understood the question.
+
+Completeness (Is the answer complete?): the answer is complete, considering all possible scenarios.
+
+Clarity (Is the answer easy to read?): the answer is easy to read even if few errors in the deductive reasoning, reduce clarity.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent, containing some statement that cannot be deduced through reasoning.
+This is because of more than one reason. Firstly, the statement "If B is a knight, then B's statement "Exactly one of us is a knave" would be true,
+which means that both A and C are knaves" is incorrect, as the fact that B is a knight, would imply that either A or C are a knave, but not both. 
+Secondly, the statement "However, this contradicts A's statement that "All of us are knaves". Therefore, B cannot be a knight" is incorrect, as we stated
+in the previous paragraph that A is a knave, and so its statement is false. This conclusion however, is not considered in the solution, making the answer even 
+less coherent. Thirdly, the statement "it means that C must be the remaining possibility, which is a knight" does not state what that possibility is. 
+Here the answer should have explicited that C could not be a knave, because: if B and C are knaves, it would make true A's statement, contradicting
+the knave hypothesis (knaves always lie) and on the other hand, if B is a knight and C is a knave, it would make false B's statement, contradicting 
+the knight hypothesis (knights always tell the truth).
+
+------------------------------------------ gpt4 : ------------------------------------------------------------ ✅
+Let's analyze the statements given by each goddess one by one.
+
+1. The visitor asked the one on the left: “Who is sitting next to you?” and she answered “Truth.”
+    
+If the goddess on the left were Truth, she would not say that Truth is sitting next to her because that would be a lie.    
+If she were Lie, she would not say Truth is sitting next to her either because 
+that would be the truth. Therefore, the only possibility is that the goddess on the left is Wisdom, 
+and she is telling the truth in this instance.
+
+2. Then he asked the one in the middle: “Who are you?” and she answered “Wisdom.”
+
+Since we have determined that the one on the left is Wisdom, the one in the middle must be lying. Therefore, the one in the middle cannot be Wisdom or Truth since Truth always tells the truth and Wisdom has already been identified as the one on the left. This means the one in the middle must be Lie.
+
+3. Last, he asked the one on the right: “Who is your neighbour?” and she replied “Lie.”
+
+If the one on the right were Lie, she would not say her neighbor is Lie because that would be the truth. We know that the one in the middle is Lie, 
+so the only goddess who would claim her neighbor is Lie (while it's false) must be Truth.
+So, in conclusion:
+- The goddess on the left is Wisdom.
+- The goddess in the middle is Lie.
+- The goddess on the right is Truth.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
+
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
+The answer captures one of these scenarios (A-knave, B-knight and C-knight) but not the other scenario.
+
+Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or false in those and looking for contradictions.
+Nonetheless, errors in the deductive reasoning, don't allow GPT-4 to understand the full picture of the problem.
+
+Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent. In particular, the statement "But if B were a knave, 
+then B's statement would be true, .... therefore, B cannot be a knave" cannot be deduced from the previous sentence, as if B were a knave, 
+its statement would still be false, because we know that A is a knave, and so there are at least two knaves, and not "exactly one".
+
+############################################# Few-shot CoT answers: #############################################################
+
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌
+For the second question, the goddesses' seating arrangement can be determined based on their answers:
+1. The goddess on the left must be the one telling the truth, as she stated that "Truth" is sitting next to her.
+2. The goddess in the middle must be Wisdom, as she stated her own name.
+3. The goddess on the right must be Lie, as she stated that "Lie" is her neighbor.
+
+So, the seating arrangement is as follows:
+The goddess on the left: Truth
+The goddess in the middle: Wisdom
+The goddess on the right: Lie
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
+
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
+The answer captures partially one of these scenarios (A-knave, B-knave) but not the full scenario or other scenarios.
+
+Completeness (Is the answer complete?): the answer is not complete because it does not discuss the possible scenarios regarding C and how they relate to A's and B's
+statements.
+
+Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent. In particular, the statement "If B is a knight, 
+then this statement would be false because both A and B would be knights. Therefore, B must be a knave" is incorrect as we stated before that A is a knave and not
+a knight. 
+
+------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ 
+Let's analyze the conversation with the three goddesses:
+
+1. The visitor asked the goddess on the left, "Who is sitting next to you?" and she answered, "Truth."
+If the goddess on the left is Truth, she would not lie, so the goddess in the middle must be Lie, 
+because Truth cannot sit next to herself. Therefore, Wisdom must be on the right.
+If the goddess on the left is Lie, she would lie about the middle goddess being Truth, 
+which means the middle one could be Wisdom or Truth. However, since Lie cannot be next to Truth, 
+the middle one must be Wisdom, and thus Truth would be on the right.
+If the goddess on the left is Wisdom, she could be telling the truth or lying. If she is telling the truth, 
+then the middle goddess is Truth, and Lie is on the right. If she is lying, then the middle goddess is Lie, 
+but this would contradict the response from the goddess on the right.
+
+2. The visitor asked the goddess in the middle, "Who are you?" and she answered, "Wisdom."
+If the middle goddess is Truth, she would not lie about being Wisdom, so this cannot be true.
+If the middle goddess is Lie, she would lie about being Wisdom, which means she could actually be Lie.
+If the middle goddess is Wisdom, she could be telling the truth or lying about her identity. 
+However, if she were lying, she would claim to be Truth or Lie, not Wisdom, because claiming to be Wisdom could still be interpreted as the truth.
+
+3. The visitor asked the goddess on the right, "Who is your neighbour?" and she replied, "Lie."
+If the goddess on the right is Truth, she would tell the truth and her neighbor would be Lie, 
+which cannot be, because Truth and Lie cannot sit next to each other.
+If the goddess on the right is Lie, she would lie about her neighbor being Lie, 
+which means her neighbor could be Truth or Wisdom. However, since the middle goddess claimed to be Wisdom, 
+and Lie wouldn't sit next to Truth, the left goddess must be Wisdom, making the middle one Truth.
+If the goddess on the right is Wisdom, she could be telling the truth or lying. If she tells the truth, 
+then her neighbor is Lie, which makes the middle goddess Truth, and the left one Wisdom. If she is lying, 
+then her neighbor is Truth, which would contradict the middle goddess's claim of being Wisdom.
+
+Based on this analysis, we can conclude that:
+- The goddess on the left is Wisdom because she could lie or tell the truth about the middle one being Truth.
+- The goddess in the middle is Truth because she cannot lie, and her claim to be Wisdom must be a lie, which she cannot do.
+- The goddess on the right is Lie because she lied about her neighbor being Lie, so her neighbor must be Truth.
+
+So, the arrangement from left to right is: Wisdom, Truth, Lie.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
+
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
+The answer captures one of these scenarios (A-knave, B-knight and C-knight) but not the other scenario.
+
+Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or false in those and looking for contradictions.
+Nonetheless, errors in the deductive reasoning, don't allow GPT-4 to understand the full picture of the problem.
+
+Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent. This is because of more than one reason. 
+First, the answer already assumed as "determined" that A is a knave, not expliciting the reasoning behind it. Second, the statement 
+"This would mean that there is exactly one knight, which would make B's statement accidentally true" is incorrect, as B's statement refers to the exact number
+of knaves and not knights. Third, the statement "it follows that C cannot be a knave. Otherwise, we would have two knaves, 
+which would contradict B's truthful statement" cannot be deduced from the previous sentence. C is in fact a knight but this is either to not to contradict A statement (if B is a knave), or to not contradict B statement (if B is a knight).
+
+############################################# Zero-shot SAT-LM answers: #############################################################
+
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌ ✅ - ans-6a.in
+To solve this problem using Mace4, you can write a script to specify the domain and constraints of the problem. 
+Here's an example of a Mace4 script that can be used to find a model fitting this specification:
+
+md5
+sos
+0
+1
+2
+
+binary
+0
+1
+
+constant
+0
+1
+2
+
+function
+0 0
+0 1
+0 2
+1 0
+1 1
+1 2
+2 0
+2 1
+2 2
+
+function
+0 0
+0 1
+0 2
+1 0
+1 1
+1 2
+2 0
+2 1
+2 2
+
+function
+0 0
+0 1
+0 2
+1 0
+1 1
+1 2
+2 0
+2 1
+2 2
+
+function
+0 0
+0 1
+0 2
+1 0
+1 1
+1 2
+2 0
+2 1
+2 2
+
+function
+0 0
+0 1
+0 2
+1 0
+1 1
+1 2
+2 0
+2 1
+2 2
+
+function
+0 0
+0 1
+0 2
+1 0
+1 1
+1 2
+2 0
+2 1
+2 2
+
+output
+This script specifies the domain of the problem and constraints for the positions of the goddesses. 
+You can then run this script using Mace4 to find a model fitting the given specification.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, only resembling it and 
+it does not work if inputted into Mace4.
+
+Accuracy (Is the answer correct?): the answer is incorrect. The Mace4 script is not valid and if inputted into Mace4 a "Fatal Error: sread_term error" is raised.
+
+Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete.
+
+Clarity (Is the answer easy to read?): the answer is difficult to read, being written in a code that only resembles Mace4, so that it does not follow its guidelines.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not understandable, so it can't be determined if it is following a correct logical flow.
+
+------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ ✅ - ans-6b.in
+To solve this puzzle, we can use logical reasoning or create a script for an automated theorem prover like Mace4. Below is a Mace4 input script that models the problem and searches for a solution:
+
+
+
+% We declare three constants representing the goddesses.
+constant truth.
+constant lie.
+constant wisdom.
+
+% We declare three functions representing the positions (left, middle, right).
+function left_goddess() -> goddess.
+function middle_goddess() -> goddess.
+function right_goddess() -> goddess.
+
+% We declare the type "goddess" with three possible values.
+type goddess: truth, lie, wisdom.
+
+% Each goddess must be in a unique position.
+inequality(left_goddess() != middle_goddess(), left_goddess() != right_goddess(), middle_goddess() != right_goddess()).
+
+% Statements by the goddesses based on the puzzle:
+% Left goddess says the one next to her is Truth.
+% Middle goddess says she is Wisdom.
+% Right goddess says her neighbour is Lie.
+
+% If the left goddess is Truth, then the middle goddess must be Truth.
+formula(left_goddess() = truth -> middle_goddess() = truth).
+
+% If the left goddess is Lie, then the middle goddess cannot be Truth.
+formula(left_goddess() = lie -> middle_goddess() != truth).
+
+% If the left goddess is Wisdom, she may lie or tell the truth, which does not give us a direct conclusion.
+
+% If the middle goddess is Truth, she cannot claim to be Wisdom.
+formula(middle_goddess() = truth -> false).
+
+% If the middle goddess is Lie, she cannot claim to be Wisdom.
+formula(middle_goddess() = lie -> false).
+
+% If the middle goddess is Wisdom, she can claim to be Wisdom, which is consistent with her statement.
+formula(middle_goddess() = wisdom).
+
+% If the right goddess is Truth, then the middle goddess must be Lie.
+formula(right_goddess() = truth -> middle_goddess() = lie).
+
+% If the right goddess is Lie, then the middle goddess cannot be Lie.
+formula(right_goddess() = lie -> middle_goddess() != lie).
+
+% If the right goddess is Wisdom, she may lie or tell the truth, which does not give us a direct conclusion.
+
+% Mace4 will search for a model that satisfies all the given conditions.
+
+When this script is run through Mace4, it will attempt to find an assignment of goddesses to positions (left, middle, right) 
+that satisfies all the given constraints. The output of the program will be a model that states which goddess is in which position 
+if such a model exists. Remember to tailor the script to the specific syntax and capabilities of Mace4 
+as this is a general representation of the logical constraints.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, only resembling it and 
+it does not work if inputted into Mace4.
+
+Accuracy (Is the answer correct?): the answer is incorrect. The Mace4 script is not valid and if inputted into Mace4 a "Fatal Error: sread_term error" is raised.
+
+Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete.
+
+Clarity (Is the answer easy to read?): the answer is difficult to read, being written in a code that only resembles Mace4, so that it does not follow its guidelines.
+
+Coherence (Is the answer following a correct logical flow?): the answer is not understandable, so it can't be determined if it is following a correct logical flow.
+
+
+############################################# Few-shot SAT-LM answers: #############################################################
+
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌ ✅ - ans-6c.in
+Here's a Mace4 script that can be used to find a model fitting the given specification for the "Three tribes" puzzle:
+
+assign(domain_size, 3).
+assign(max_models, -1).
+
+list(distinct).
+    [n1, n2, n3].
+end_of_list.
+
+formulas(assumptions).
+    exists x(white(x)) & exists x(black(x)) & exists x(gray(x)).
+    all x(white(x) & white(y) −> x=y). % Each one from a different tribe
+    all x(black(x) & black(y) −> x=y).
+    all x(gray(x) & gray(y) −> x=y).
+
+    all x(white(x) −> −black(x) & −gray(x)). % Each one from a single tribe
+    all x(black(x) −> −white(x) & −gray(x)).
+    all x(gray(x) −> −white(x) & −black(x)).
+end_of_list.
+
+formulas(alltruth_puzzle).
+    white(n1) −> gray(n1) & black(n2) & white(n3). % Case 1: w answers
+    black(n1) −> −gray(n1) & −black(n2) & −white(n3). % Case 2: b answers
+    gray(n1) −> (gray(n1) & −black(n2) & white(n3)) | % Case 3: g answers
+                (−gray(n1) & black(n2) & white(n3)).
+end_of_list.
+And here's a Mace4 script that can be used to find a model fitting the given specification for the "Three goddesses" puzzle:
+
+assign(domain_size, 3).
+assign(max_models, -1).
+
+list(distinct).
+    [n1, n2, n3].
+end_of_list.
+
+formulas(assumptions).
+    exists x(truth(x)) & exists x(lie(x)) & exists x(wisdom(x)).
+    all x(truth(x) & truth(y) −> x=y). % Each one from a different goddess
+    all x(lie(x) & lie(y) −> x=y).
+    all x(wisdom(x) & wisdom(y) −> x=y).
+
+    all x(truth(x) −> −lie(x) & −wisdom(x)). % Each one from a single goddess
+    all x(lie(x) −> −truth(x) & −wisdom(x)).
+    all x(wisdom(x) −> −truth(x) & −lie(x)).
+end_of_list.
+
+formulas(alltruth_puzzle).
+    truth(n1) −> (lie(n2) & wisdom(n3)). % Case 1: t answers
+    lie(n1) −> (truth(n2) & wisdom(n3)). % Case 2: l answers
+    wisdom(n1) −> (truth(n2) & lie(n3)). % Case 3: w answers
+end_of_list.
+You can use these Mace4 scripts to find a model fitting the given specifications for the puzzles.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+
+Accuracy (Is the answer correct?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+
+Completeness (Is the answer complete?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+
+Clarity (Is the answer easy to read?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+
+Coherence (Is the answer following a correct logical flow?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+
+------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ ✅ - ans-6d.in
+To solve the riddle using Mace4, we need to formulate the problem in terms of logical statements that Mace4 can interpret to find a model 
+that fits the given specifications. Here's a Mace4 script that can be used to solve the riddle of the three goddesses:
+
+assign(domain_size, 3). % There are three goddesses.
+assign(max_models, 1). % We're only interested in one possible solution.
+
+list(distinct).
+    goddess(truth).
+    goddess(lie).
+    goddess(wisdom).
+end_of_list.
+
+list(constants).
+    % We define a constant for each position.
+    left.
+    middle.
+    right.
+end_of_list.
+
+formulas(assumptions).
+    % Only one goddess can occupy one position.
+    all x (goddess(x) -> one y (position(y) & sits(x, y))).
+    
+    % Each position must be occupied by exactly one goddess.
+    all y (position(y) -> one x (goddess(x) & sits(x, y))).
+
+    % Defining the behavior of each goddess based on their truth-telling nature.
+    % Truth always tells the truth.
+    all x (sits(truth, x) -> (next_to(x, lie) | next_to(x, wisdom))).
+    
+    % Lie always lies.
+    all x (sits(lie, x) -> (next_to(x, truth) | next_to(x, wisdom))).
+    
+    % Wisdom can either tell the truth or lie, so no restriction here.
+end_of_list.
+
+formulas(questions).
+    % The visitor's questions and the answers given.
+    
+    % The one on the left says that Truth is next to her.
+    % This can only be true if she is Lie (because Truth cannot sit next to herself).
+    sits(lie, left).
+    next_to(left, truth).
+    
+    % The one in the middle claims to be Wisdom.
+    % This can be true only if she is indeed Wisdom, as Truth wouldn't lie and Lie wouldn't tell the truth.
+    sits(wisdom, middle).
+    
+    % The one on the right says that her neighbour is Lie.
+    % This can be true if she is Truth (because Wisdom would not be certain to lie about this).
+    sits(truth, right).
+    next_to(right, lie).
+end_of_list.
+
+% We need to define what it means for someone to be next to another.
+formulas(next_to_definitions).
+    % Define the left and right of each position.
+    next_to(left, middle).
+    next_to(middle, right).
+    % There is no one next to the rightmost position.
+end_of_list.
+
+% Now we run Mace4 to find a solution.
+
+This script sets up the constants, assumptions, and questions related to the riddle of the three goddesses. 
+It defines the behavior expected from Truth, Lie, and Wisdom and then states the answers that were given to the visitor's questions.
+To solve this riddle, we have to take into account the nature of each goddess and the implications of their answers. 
+We also define what "next to" means in this context, as it's necessary for interpreting the answers.
+Running this script in Mace4 should give us the model that fits the problem, which will allow us to determine where each goddess is sitting.
+
+////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
+
+Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knights and knaves problem.
+
+Accuracy (Is the answer correct?): the answer is incorrect. While the Mace4 script is syntactically correct, and produces an output without errors, it 
+does not correctly map the problem into code. For instance A's statement "All of us are knaves" is mistakenly written as 
+"m(a) <-> -((knight(a) & knight(b) & knight(c)) | (knave(a) & knave(b) & knave(c)))." while the correct mapping would have been 
+simply "m(a) <−> (knave(a) & knave(b) & knave(c))." On the other hand, B's statement is reported correctly in the Mace4 formula.
+
+Completeness (Is the answer complete?): the answer is complete, providing the requested code. 
+
+Clarity (Is the answer easy to read?): the answer is easy to read, providing a well written Mace4 script. An additional comment is present that 
+helps the reader understand what each line of code does.
+
+Coherence (Is the answer following a correct logical flow?): the answer correctly creates the script, making correct use of assign() and formulas().
