@@ -222,7 +222,7 @@ Answer2: ?
 
 #############################################  Zero-shot CoT answers: #############################################################
 
------------------------------------------- gpt3.5 : ------------------------------------------------------------ ❌ ✅
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌ 
 Sure! Let's think this through step by step.
 We know that one of the goddesses is always telling the truth, one is always lying, and one sometimes tells the truth and sometimes lies.
 1. The goddess on the left said that Truth is sitting next to her. This means that the goddess on the left cannot be Lie, as Lie would never tell the truth.
@@ -239,23 +239,18 @@ Therefore, the goddess on the left is Truth, the goddess in the middle is Wisdom
 
 Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
-Accuracy (Is the answer correct?): the answer is correct. It correctly identified the two possible models of the solution 
-(A-knave, B-knave, C-knight; A-knave, B-knight, C-knight). However the answer still contains some erroneous lines of reasoning, 
-suggesting that GPT-3.5 has not fully understood the question.
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that wisdom is sitting on the left, lie is sitting in the middle and
+truth is sitting on the right.
 
-Completeness (Is the answer complete?): the answer is complete, considering all possible scenarios.
+Completeness (Is the answer complete?): the answer is not complete, failing to consider all possible scenarios and to identify the 
+contradictions within each one of them.
 
-Clarity (Is the answer easy to read?): the answer is easy to read even if few errors in the deductive reasoning, reduce clarity.
+Clarity (Is the answer easy to read?): the answer is easy to read even if the erroneous line of reasoning makes it hard to follow.
 
 Coherence (Is the answer following a correct logical flow?): the answer is not coherent, containing some statement that cannot be deduced through reasoning.
-This is because of more than one reason. Firstly, the statement "If B is a knight, then B's statement "Exactly one of us is a knave" would be true,
-which means that both A and C are knaves" is incorrect, as the fact that B is a knight, would imply that either A or C are a knave, but not both. 
-Secondly, the statement "However, this contradicts A's statement that "All of us are knaves". Therefore, B cannot be a knight" is incorrect, as we stated
-in the previous paragraph that A is a knave, and so its statement is false. This conclusion however, is not considered in the solution, making the answer even 
-less coherent. Thirdly, the statement "it means that C must be the remaining possibility, which is a knight" does not state what that possibility is. 
-Here the answer should have explicited that C could not be a knave, because: if B and C are knaves, it would make true A's statement, contradicting
-the knave hypothesis (knaves always lie) and on the other hand, if B is a knight and C is a knave, it would make false B's statement, contradicting 
-the knight hypothesis (knights always tell the truth).
+Firstly, the statement from the goddess on the left is analyzed incorrectly, as the goddess on the left could be Lie, and the statement would be false. An
+example of valid configuration according only to the first statement is Lie, Wisdom, Truth. Finally we should also note the contradiction with having 
+Truth saying Truth is sitting next to me, which is a contradiction.
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ✅
 Let's analyze the statements given by each goddess one by one.
@@ -284,17 +279,18 @@ So, in conclusion:
 
 Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
-Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
-The answer captures one of these scenarios (A-knave, B-knight and C-knight) but not the other scenario.
+Accuracy (Is the answer correct?): the answer is correct. It correctly identified the right solution, i.e. wisdom is sitting on the left, lie is sitting 
+in the middle and truth is sitting on the right. It should be noted that the model still makes at least one reasoning mistake while determining the identity of 
+the goddess on the left.
 
 Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or false in those and looking for contradictions.
-Nonetheless, errors in the deductive reasoning, don't allow GPT-4 to understand the full picture of the problem.
+Nonetheless, the model makes mistake in the deductive reasoning, that still allow the correct solution to be found, but without making the correct reasoning steps.
 
-Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
+Clarity (Is the answer easy to read?): the answer is easy to read even if few errors in the deductive reasoning, can make it hard to follow.
 
-Coherence (Is the answer following a correct logical flow?): the answer is not coherent. In particular, the statement "But if B were a knave, 
-then B's statement would be true, .... therefore, B cannot be a knave" cannot be deduced from the previous sentence, as if B were a knave, 
-its statement would still be false, because we know that A is a knave, and so there are at least two knaves, and not "exactly one".
+Coherence (Is the answer following a correct logical flow?): the answer is mostly coherent, following a clear line of reasoning, but it sometimes fails to
+make the correct reasoning, as for example while determining the identity of the goddess on the left. As the possibility of it being Lie is not incompatible 
+with its statement, if Wisdom is sitting in the middle.
 
 ############################################# Few-shot CoT answers: #############################################################
 
@@ -313,17 +309,14 @@ The goddess on the right: Lie
 
 Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
-Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
-The answer captures partially one of these scenarios (A-knave, B-knave) but not the full scenario or other scenarios.
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that wisdom is sitting on the left, lie is sitting in the middle and
+truth is sitting on the right.
 
-Completeness (Is the answer complete?): the answer is not complete because it does not discuss the possible scenarios regarding C and how they relate to A's and B's
-statements.
+Completeness (Is the answer complete?): the answer is not complete, as it lacks any line of reasoning and it only outputs the solution.
 
-Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
+Clarity (Is the answer easy to read?): the answer is easy to read, but it does not contain any reasoning step on the problem.
 
-Coherence (Is the answer following a correct logical flow?): the answer is not coherent. In particular, the statement "If B is a knight, 
-then this statement would be false because both A and B would be knights. Therefore, B must be a knave" is incorrect as we stated before that A is a knave and not
-a knight. 
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent as it lacks any reasoning behind the given answer to the puzzle.
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ 
 Let's analyze the conversation with the three goddesses:
@@ -365,23 +358,22 @@ So, the arrangement from left to right is: Wisdom, Truth, Lie.
 
 Relevance (Is the answer on point?): the answer is relevant, talking about possible solutions of the knights and knaves problem. 
 
-Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that A is a knave, B can be either a knave or a knight and C is a knight.
-The answer captures one of these scenarios (A-knave, B-knight and C-knight) but not the other scenario.
+Accuracy (Is the answer correct?): the answer is incorrect. The correct answer would be that wisdom is sitting on the left, lie is sitting in the middle and
+truth is sitting on the right.
 
 Completeness (Is the answer complete?): the answer outlines each possible scenario explaning how the statement would be true or false in those and looking for contradictions.
-Nonetheless, errors in the deductive reasoning, don't allow GPT-4 to understand the full picture of the problem.
+Nonetheless, the model fails to identify the correct solution due to reasoning mistakes.
 
 Clarity (Is the answer easy to read?): the answer is easy to read even if the errors in the deductive reasoning, make it hard to follow.
 
-Coherence (Is the answer following a correct logical flow?): the answer is not coherent. This is because of more than one reason. 
-First, the answer already assumed as "determined" that A is a knave, not expliciting the reasoning behind it. Second, the statement 
-"This would mean that there is exactly one knight, which would make B's statement accidentally true" is incorrect, as B's statement refers to the exact number
-of knaves and not knights. Third, the statement "it follows that C cannot be a knave. Otherwise, we would have two knaves, 
-which would contradict B's truthful statement" cannot be deduced from the previous sentence. C is in fact a knight but this is either to not to contradict A statement (if B is a knave), or to not contradict B statement (if B is a knight).
+Coherence (Is the answer following a correct logical flow?): the answer is not coherent, as it fails many reasoning steps. An example of this is the reasoning around 
+the first statement. If truth is sitting on the left, it would declare that truth is sitting next to it, but this would be impossible as it cannot sit next
+to itself. This excludes that the goddess on the left is Truth. The answer instead mistakenly says that if Truth is on the left, Lie must be in the middle, 
+which does not map to any statement.
 
 ############################################# Zero-shot SAT-LM answers: #############################################################
 
------------------------------------------- gpt3.5 : ------------------------------------------------------------ ❌ ✅ - ans-6a.in
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌  - ans-6a.in
 To solve this problem using Mace4, you can write a script to specify the domain and constraints of the problem. 
 Here's an example of a Mace4 script that can be used to find a model fitting this specification:
 
@@ -472,21 +464,19 @@ You can then run this script using Mace4 to find a model fitting the given speci
 
 ////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is partially relevant describing a code script for Mace4. The code is not actually Mace4, only resembling it and 
-it does not work if inputted into Mace4.
+Relevance (Is the answer on point?): the answer is not relevant, giving not a pseudo code and not a valid Mace4 script. It is just a not understandable 
+collection of numbers.
 
 Accuracy (Is the answer correct?): the answer is incorrect. The Mace4 script is not valid and if inputted into Mace4 a "Fatal Error: sread_term error" is raised.
 
 Completeness (Is the answer complete?): the answer is not understandable, so it can't be determined if it is complete.
 
-Clarity (Is the answer easy to read?): the answer is difficult to read, being written in a code that only resembles Mace4, so that it does not follow its guidelines.
+Clarity (Is the answer easy to read?): the answer is not understandable and thus not easy to read.
 
 Coherence (Is the answer following a correct logical flow?): the answer is not understandable, so it can't be determined if it is following a correct logical flow.
 
------------------------------------------- gpt4 : ------------------------------------------------------------ ❌ ✅ - ans-6b.in
+------------------------------------------ gpt4 : ------------------------------------------------------------ ❌  - ans-6b.in
 To solve this puzzle, we can use logical reasoning or create a script for an automated theorem prover like Mace4. Below is a Mace4 input script that models the problem and searches for a solution:
-
-
 
 % We declare three constants representing the goddesses.
 constant truth.
@@ -557,7 +547,7 @@ Coherence (Is the answer following a correct logical flow?): the answer is not u
 
 ############################################# Few-shot SAT-LM answers: #############################################################
 
------------------------------------------- gpt3.5 : ------------------------------------------------------------ ❌ ✅ - ans-6c.in
+------------------------------------------ gpt3.5 : ------------------------------------------------------------ ❌ - ans-6c.in
 Here's a Mace4 script that can be used to find a model fitting the given specification for the "Three tribes" puzzle:
 
 assign(domain_size, 3).
@@ -613,15 +603,17 @@ You can use these Mace4 scripts to find a model fitting the given specifications
 
 ////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Relevance (Is the answer on point?): the answer is relevant describing a code script for Mace4. The code script is valid, but not correct.
 
-Accuracy (Is the answer correct?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Accuracy (Is the answer correct?): the answer is incorrect providing an invalid code script. The code is incorrect in the formulas(alltruth_puzzle) section
+where the goddesses statements are not mapped correctly.
 
-Completeness (Is the answer complete?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Completeness (Is the answer complete?): the answer is partially complete, failing to map the statements of the goddesses.
 
-Clarity (Is the answer easy to read?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Clarity (Is the answer easy to read?): the answer is easy to read, as it is in a valid Mace4 code.
 
-Coherence (Is the answer following a correct logical flow?): GPT-3.5 provided no answer for this question, lacking understanding of what was asked.
+Coherence (Is the answer following a correct logical flow?): the answer correctly creates the script, making correct use of assign() and formulas(). 
+The mistake that it makes is what is contained in formulas(alltruth_puzzle) section
 
 ------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ ✅ - ans-6d.in
 To solve the riddle using Mace4, we need to formulate the problem in terms of logical statements that Mace4 can interpret to find a model 
@@ -696,16 +688,34 @@ Running this script in Mace4 should give us the model that fits the problem, whi
 
 ////////////////////////////////////////// comment ////////////////////////////////////////////////////////////
 
-Relevance (Is the answer on point?): the answer is relevant, outputting a correct Mace4 script that models the knights and knaves problem.
+Relevance (Is the answer on point?): the answer is somewhat relevant, outputting a Mace4 script that models the knights and knaves problem. The mapping 
+is incorrect and it incorrectly tries to solve the problem instead of only mapping.
 
-Accuracy (Is the answer correct?): the answer is incorrect. While the Mace4 script is syntactically correct, and produces an output without errors, it 
-does not correctly map the problem into code. For instance A's statement "All of us are knaves" is mistakenly written as 
-"m(a) <-> -((knight(a) & knight(b) & knight(c)) | (knave(a) & knave(b) & knave(c)))." while the correct mapping would have been 
-simply "m(a) <−> (knave(a) & knave(b) & knave(c))." On the other hand, B's statement is reported correctly in the Mace4 formula.
+Accuracy (Is the answer correct?): the answer is incorrect. While the Mace4 script is syntactically correct, it tries to solve the problem instead of only mapping it.
+A valid script is the following:
+assign(domain_size ,2).
+assign ( max_models , −1).
 
-Completeness (Is the answer complete?): the answer is complete, providing the requested code. 
+formulas ( assumptions ).
+    (T1 | T2 | T3) & (L1 | L2 | L3) & (W1 | W2 | W3).
 
-Clarity (Is the answer easy to read?): the answer is easy to read, providing a well written Mace4 script. An additional comment is present that 
-helps the reader understand what each line of code does.
+    %T, L and W occupies only one position
+    (T1 −> −T2 & −T3) & (T2 −> −T1 & −T3) & (T3 −> −T1 & −T2).
+    (L1 −> −L2 & −L3) & (L2 −> −L1 & −L3) & (L3 −> −L1 & −L2).
+    (W1 −> −W2 & −W3) & (W2 −> −W1 & −W3) & (W3 −> −W1 & −W2).
 
-Coherence (Is the answer following a correct logical flow?): the answer correctly creates the script, making correct use of assign() and formulas().
+    %Each position is occupied by one goddess
+    (T1 −> −L1 & −W1) & (T2 −> −L2 & −W2) & (T3 −> −L3 & −W3).
+    (L1 −> −T1 & −W1) & (L2 −> −T2 & −W2) & (L3 −> −T3 & −W3).
+    (W1 −> −L1 & −T1) & (W2 −> −L2 & −T2) & (W3 −> −L3 & −T3).
+
+    (L1 −> −T2) & (T1 −> T2). % the first answer
+    (L2 −> −W2) & (T2 −> W2). % the second answer
+    (T3 −> L2) & (L3 −> −L2). % the third answer
+end_of_list .
+
+Completeness (Is the answer complete?): the answer is complete, providing the requested code, even if it is not correct.
+
+Clarity (Is the answer easy to read?): the answer is easy to read, but it still provides an incorrect Mace4 code.
+
+Coherence (Is the answer following a correct logical flow?): the answer creates a script, but it does not follow a coherent and logical plan to map the problem in Mace4.
