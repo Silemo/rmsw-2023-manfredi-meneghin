@@ -615,7 +615,7 @@ Clarity (Is the answer easy to read?): the answer is easy to read, as it is in a
 Coherence (Is the answer following a correct logical flow?): the answer correctly creates the script, making correct use of assign() and formulas(). 
 The mistake that it makes is what is contained in formulas(alltruth_puzzle) section
 
------------------------------------------- gpt4 : ------------------------------------------------------------ ❌ ✅ - ans-6d.in
+------------------------------------------ gpt4 : ------------------------------------------------------------ ❌ - ans-6d.in
 To solve the riddle using Mace4, we need to formulate the problem in terms of logical statements that Mace4 can interpret to find a model 
 that fits the given specifications. Here's a Mace4 script that can be used to solve the riddle of the three goddesses:
 
